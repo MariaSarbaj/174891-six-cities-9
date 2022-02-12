@@ -4,6 +4,18 @@ type HomePageScreenProps = {
   offersNumber: number;
 }
 
+const locations = ['Paris', 'Cologne', 'Brussels', 'Amsterdam', 'Hamburg', 'Dusseldorf'];
+
+function getLocationItem (location: string, key: number): JSX.Element {
+  return (
+    <li className="locations__item" key={key}>
+      <a className="locations__item-link tabs__item" href="/#">
+        <span>{location}</span>
+      </a>
+    </li>
+  );
+}
+
 function HomePage({offersNumber}: HomePageScreenProps): JSX.Element {
   return  (
     <main className="page__main page__main--index">
@@ -11,36 +23,11 @@ function HomePage({offersNumber}: HomePageScreenProps): JSX.Element {
       <div className="tabs">
         <section className="locations container">
           <ul className="locations__list tabs__list">
-            <li className="locations__item">
-              <a className="locations__item-link tabs__item" href="/#">
-                <span>Paris</span>
-              </a>
-            </li>
-            <li className="locations__item">
-              <a className="locations__item-link tabs__item" href="/#">
-                <span>Cologne</span>
-              </a>
-            </li>
-            <li className="locations__item">
-              <a className="locations__item-link tabs__item" href="/#">
-                <span>Brussels</span>
-              </a>
-            </li>
-            <li className="locations__item">
-              <a className="locations__item-link tabs__item tabs__item--active" href="/">
-                <span>Amsterdam</span>
-              </a>
-            </li>
-            <li className="locations__item">
-              <a className="locations__item-link tabs__item" href="/#">
-                <span>Hamburg</span>
-              </a>
-            </li>
-            <li className="locations__item">
-              <a className="locations__item-link tabs__item" href="/#">
-                <span>Dusseldorf</span>
-              </a>
-            </li>
+
+            {locations.map((location: string, index: number) =>
+              getLocationItem(location, index),
+            )}
+
           </ul>
         </section>
       </div>
