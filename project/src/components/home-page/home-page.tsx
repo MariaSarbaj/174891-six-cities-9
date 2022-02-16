@@ -1,3 +1,5 @@
+import {Link} from 'react-router-dom';
+
 import PlaceCard from '../place-card/place-card';
 
 type HomePageScreenProps = {
@@ -9,9 +11,9 @@ const locations = ['Paris', 'Cologne', 'Brussels', 'Amsterdam', 'Hamburg', 'Duss
 function getLocationItem (location: string, key: number): JSX.Element {
   return (
     <li className="locations__item" key={key}>
-      <a className="locations__item-link tabs__item" href="/#">
+      <Link className="locations__item-link tabs__item" to='/property'>
         <span>{location}</span>
-      </a>
+      </Link>
     </li>
   );
 }

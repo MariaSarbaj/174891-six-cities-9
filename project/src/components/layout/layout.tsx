@@ -1,6 +1,6 @@
-import Header from '../header/header';
+import {Outlet} from 'react-router-dom';
 
-import HomePage from '../home-page/home-page';
+import Header from '../header/header';
 
 type LayoutScreenProps = {
   offersNumber: number;
@@ -11,9 +11,7 @@ function Layout({offersNumber}: LayoutScreenProps): JSX.Element {
     <>
       <Header />
 
-      <HomePage
-        offersNumber = {offersNumber}
-      />
+      <Outlet />
     </>
   );
 }
