@@ -1,3 +1,4 @@
+import React from 'react';
 import {Navigate, RouteProps} from 'react-router-dom';
 import {AppRoute, AuthorizationStatus} from '../../const';
 

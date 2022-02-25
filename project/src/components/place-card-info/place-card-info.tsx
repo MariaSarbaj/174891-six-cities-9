@@ -1,11 +1,17 @@
+import React from 'react';
 import {Link} from 'react-router-dom';
+import {OfferCard} from '../../types/offer';
 
-function PlaceCardInfo(): JSX.Element {
+type PlaceCardInfoScreenProps = {
+  offer: OfferCard
+}
+
+function PlaceCardInfo(offer: PlaceCardInfoScreenProps): JSX.Element {
   return (
     <>
       <div className="place-card__price-wrapper">
         <div className="place-card__price">
-          <b className="place-card__price-value">&euro;120</b>
+          <b className="place-card__price-value">&euro;{offer.offer.price}</b>
           <span className="place-card__price-text">&#47;&nbsp;night</span>
         </div>
         <button className="place-card__bookmark-button button" type="button">
@@ -22,9 +28,9 @@ function PlaceCardInfo(): JSX.Element {
         </div>
       </div>
       <h2 className="place-card__name">
-        <Link to="/#">Beautiful &amp; luxurious apartment at great location</Link>
+        <Link to="/#">{offer.offer.title}</Link>
       </h2>
-      <p className="place-card__type">Apartment</p>
+      <p className="place-card__type">{offer.offer.features.entire}</p>
     </>
   );
 }

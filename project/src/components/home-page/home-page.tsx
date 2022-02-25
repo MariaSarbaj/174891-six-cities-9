@@ -1,9 +1,13 @@
+import React from 'react';
 import {Link} from 'react-router-dom';
 
-import PlaceCard from '../place-card/place-card';
+import {Offers} from '../../types/offer';
+
+import LocationsList from '../locations-list/locations-list';
 
 type HomePageScreenProps = {
-  offersNumber: number;
+  offersNumber: number,
+  offers: Offers,
 }
 
 const locations = ['Paris', 'Cologne', 'Brussels', 'Amsterdam', 'Hamburg', 'Dusseldorf'];
@@ -18,7 +22,7 @@ function getLocationItem (location: string, key: number): JSX.Element {
   );
 }
 
-function HomePage({offersNumber}: HomePageScreenProps): JSX.Element {
+function HomePage({offersNumber, offers}: HomePageScreenProps): JSX.Element {
   return  (
     <main className="page__main page__main--index">
       <h1 className="visually-hidden">Cities</h1>
@@ -53,15 +57,9 @@ function HomePage({offersNumber}: HomePageScreenProps): JSX.Element {
                 <li className="places__option" tabIndex={0}>Top rated first</li>
               </ul>
             </form>
-            <div className="cities__places-list places__list tabs__content">
 
-              <PlaceCard />
-              <PlaceCard />
-              <PlaceCard />
-              <PlaceCard />
-              <PlaceCard />
+            <LocationsList offers={offers}/>
 
-            </div>
           </section>
           <div className="cities__right-section">
             <section className="cities__map map" />
