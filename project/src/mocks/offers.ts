@@ -1,8 +1,6 @@
-import React from 'react';
-import {render, screen} from '@testing-library/react';
-import App from './app';
+import {Offer} from '../types/offer';
 
-const offers = [
+export const offers: Offer[] = [
   {
     OfferCard: {
       id: 'dfghdhjm',
@@ -164,34 +162,3 @@ const offers = [
     description: 'A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam. The building is green and from 18th century.',
   },
 ];
-
-const reviews = [
-  {
-    id: 'dtjdytjyk',
-    user: {
-      id: 'tjrhgitrh',
-      src: 'https://upload.wikimedia.org/wikipedia/commons/a/af/20180405_FIFA_Women%27s_World_Cup_Qualification_AUT-SRB_Kristina_Inhof_850_6519.jpg',
-      name: 'Max',
-    },
-    rating: 4.8,
-    text: 'A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam. The building is green and from 18th century.',
-    date: `${new Date()}`,
-  },
-  {
-    id: 'yuliu',
-    user: {
-      id: 'tdykfil,',
-      src: 'https://upload.wikimedia.org/wikipedia/commons/a/af/20180405_FIFA_Women%27s_World_Cup_Qualification_AUT-SRB_Kristina_Inhof_850_6519.jpg',
-      name: 'Max',
-    },
-    rating: 4.8,
-    text: 'A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam. The building is green and from 18th century.',
-    date: `${new Date()}`,
-  },
-];
-
-test('Renders app-component', () => {
-  render(<App offersNumber={312} offers={offers} reviews={reviews}/>);
-  const textElement = screen.getByText(/312 places to stay in Amsterdam/i);
-  expect(textElement).toBeInTheDocument();
-});

@@ -1,20 +1,33 @@
+import React from 'react';
 import {Link} from 'react-router-dom';
+import {useState} from 'react';
 
 import PlaceCardInfo from '../place-card-info/place-card-info';
 
-function FavoritePlaceCard(): JSX.Element {
+import {OfferCard} from '../../types/offer';
+
+type FavoritePlaceCardScreenProps = {
+  offer: OfferCard
+}
+
+function FavoritePlaceCard(offer: FavoritePlaceCardScreenProps): JSX.Element {
+  const [isActive, setIsActive] = useState(false);
+
   return (
-    <article className="favorites__card place-card">
+    <article
+      className="favorites__card place-card"
+      onMouseOver={() => setIsActive(!isActive)}
+    >
       <div className="place-card__mark">
-        <span>Premium</span>
+        <span>{offer.offer.mark}</span>
       </div>
       <div className="favorites__image-wrapper place-card__image-wrapper">
         <Link to='#'>
-          <img className="place-card__image" src="img/apartment-small-03.jpg" width="150" height="110" alt="Place_image" />
+          <img className="place-card__image" src={offer.offer.src[0]} width="150" height="110" alt="Place_image" />
         </Link>
       </div>
       <div className="favorites__card-info place-card__info">
-        <PlaceCardInfo />
+        <PlaceCardInfo offer={offer.offer}/>
       </div>
     </article>
   );
