@@ -16,9 +16,10 @@ type AppScreenProps = {
   offersNumber: number,
   offers: Offers,
   reviews: Reviews,
+  selectedOffer: string | null
 }
 
-function App({offersNumber, offers, reviews}: AppScreenProps): JSX.Element {
+function App({offersNumber, offers, reviews, selectedOffer}: AppScreenProps): JSX.Element {
   const [offer] = offers;
   const [review] = reviews;
 
@@ -26,7 +27,7 @@ function App({offersNumber, offers, reviews}: AppScreenProps): JSX.Element {
     <BrowserRouter>
       <Routes>
         <Route path={AppRoute.Main} element={<Layout offersNumber = {offersNumber} />}>
-          <Route index element={<HomePage offersNumber = {offersNumber} offers={offers}/>} />
+          <Route index element={<HomePage offersNumber = {offersNumber} offers={offers} selectedOffer={selectedOffer}/>} />
           <Route path={AppRoute.SignIn} element={<Login />} />
           <Route path={AppRoute.Favorites} element={
             <PrivateRoute authorizationStatus={AuthorizationStatus.Auth}>

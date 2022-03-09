@@ -14,6 +14,7 @@ ReactDOM.render(
       offersNumber = {City.OFFERS_NUMBER}
       offers = {offers}
       reviews = {reviews}
+      selectedOffer={null}
     />
   </React.StrictMode>,
   document.getElementById('root'));

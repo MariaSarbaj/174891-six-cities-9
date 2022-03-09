@@ -1,13 +1,16 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {Link} from 'react-router-dom';
 
 import {Offers} from '../../types/offer';
 
 import LocationsList from '../locations-list/locations-list';
+import Map from '../map/map';
+import {CityLocation} from '../../mocks/city';
 
 type HomePageScreenProps = {
   offersNumber: number,
   offers: Offers,
+  selectedOffer: string | null
 }
 
 const locations = ['Paris', 'Cologne', 'Brussels', 'Amsterdam', 'Hamburg', 'Dusseldorf'];
@@ -22,7 +25,9 @@ function getLocationItem (location: string, key: number): JSX.Element {
   );
 }
 
-function HomePage({offersNumber, offers}: HomePageScreenProps): JSX.Element {
+function HomePage({offersNumber, offers, selectedOffer}: HomePageScreenProps): JSX.Element {
+  const [activeOffer, setActiveOffer] = useState(null as string | null);
+
   return  (
     <main className="page__main page__main--index">
       <h1 className="visually-hidden">Cities</h1>
@@ -58,11 +63,11 @@ function HomePage({offersNumber, offers}: HomePageScreenProps): JSX.Element {
               </ul>
             </form>
 
-            <LocationsList offers={offers}/>
+            <LocationsList offers={offers} setActiveOffer={setActiveOffer}/>
 
           </section>
           <div className="cities__right-section">
-            <section className="cities__map map" />
+            <Map city={CityLocation} offers={offers} selectedOffer={activeOffer}/>
           </div>
         </div>
       </div>

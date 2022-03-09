@@ -13,6 +13,8 @@ export type OfferCard = {
 
 export type Offer = {
   OfferCard: OfferCard,
+  lat: number,
+  lng: number,
   rating: number,
   inside: string[],
   host: {
