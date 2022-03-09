@@ -23,6 +23,8 @@ const offers = [
       },
       price: 120,
     },
+    lat: 52.3909553943508,
+    lng: 4.85309666406198,
     rating: 4.8,
     inside: [
       'Wi-Fi',
@@ -63,6 +65,8 @@ const offers = [
       },
       price: 120,
     },
+    lat: 52.369553943508,
+    lng: 4.85309666406198,
     rating: 4.8,
     inside: [
       'Wi-Fi',
@@ -103,6 +107,8 @@ const offers = [
       },
       price: 120,
     },
+    lat: 52.3909553943508,
+    lng: 4.929309666406198,
     rating: 4.8,
     inside: [
       'Wi-Fi',
@@ -143,6 +149,8 @@ const offers = [
       },
       price: 120,
     },
+    lat: 52.3809553943508,
+    lng: 4.939309666406198,
     rating: 4.8,
     inside: [
       'Wi-Fi',
@@ -191,7 +199,7 @@ const reviews = [
 ];
 
 test('Renders app-component', () => {
-  render(<App offersNumber={312} offers={offers} reviews={reviews}/>);
+  render(<App offersNumber={312} offers={offers} reviews={reviews} selectedOffer={null}/>);
   const textElement = screen.getByText(/312 places to stay in Amsterdam/i);
   expect(textElement).toBeInTheDocument();
 });

@@ -5,15 +5,16 @@ import {Offers, Offer, OfferCard} from '../../types/offer';
 
 type LocationListScreenProps = {
   offers: Offers,
+  setActiveOffer: (x: string | null) => void,
 }
 
-function LocationsList({offers}: LocationListScreenProps):JSX.Element {
+function LocationsList({offers, setActiveOffer}: LocationListScreenProps):JSX.Element {
 
   return (
     <div className="cities__places-list places__list tabs__content">
 
       {offers.map((offer: Offer) =>
-        <PlaceCard offer={offer.OfferCard as OfferCard} key={offer.OfferCard.id}/>,
+        <PlaceCard offer={offer.OfferCard as OfferCard} key={offer.OfferCard.id} mouseOverHandler={(title: string) => {setActiveOffer(title);}}/>,
       )}
 
     </div>
