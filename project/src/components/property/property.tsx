@@ -1,14 +1,17 @@
-import React from 'react';
-import {Link} from 'react-router-dom';
-import PlaceCardInfo from '../place-card-info/place-card-info';
+import React, {useState} from 'react';
 import ReviewForm from '../reviews-form/reviews-form';
+import ReviewsList from '../reviews-list/reviews-list';
+import Map from '../map/map';
 
-import {Offer} from '../../types/offer';
-import {Review} from '../../types/review';
+import {Offer, Offers} from '../../types/offer';
+import {Reviews} from '../../types/review';
+import {CityLocation} from '../../mocks/city';
+import LocationsList from '../locations-list/locations-list';
 
 type PropertyScreenProps = {
   offer: Offer,
-  review: Review,
+  offers: Offers
+  reviews: Reviews,
 }
 
 function getPropertyImage(src: string, key: number): JSX.Element {
@@ -27,9 +30,8 @@ function getPropertyInsideItem(item: string, key: number): JSX.Element {
   );
 }
 
-function Property(props: PropertyScreenProps): JSX.Element {
-  const {offer} = props;
-  const {review} = props;
+function Property({offer, reviews, offers}: PropertyScreenProps): JSX.Element {
+  const [activeOffer, setActiveOffer] = useState(null as string | null);
 
   return (
     <main className="page__main page__main--property">
@@ -110,71 +112,18 @@ function Property(props: PropertyScreenProps): JSX.Element {
               </div>
             </div>
             <section className="property__reviews reviews">
-              <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">1</span></h2>
-              <ul className="reviews__list">
-                <li className="reviews__item">
-                  <div className="reviews__user user">
-                    <div className="reviews__avatar-wrapper user__avatar-wrapper">
-                      <img className="reviews__avatar user__avatar" src={review.user.src} width="54" height="54" alt="Reviews avatar" />
-                    </div>
-                    <span className="reviews__user-name">
-                      {review.user.name}
-                    </span>
-                  </div>
-                  <div className="reviews__info">
-                    <div className="reviews__rating rating">
-                      <div className="reviews__stars rating__stars">
-                        <span style={{width: '80%'}} />
-                        <span className="visually-hidden">Rating</span>
-                      </div>
-                    </div>
-                    <p className="reviews__text">
-                      {review.text}
-                    </p>
-                    <time className="reviews__time" dateTime={review.date}>April 2019</time>
-                  </div>
-                </li>
-              </ul>
+              <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{reviews.length}</span></h2>
+              <ReviewsList reviews={reviews}/>
               <ReviewForm />
             </section>
           </div>
         </div>
-        <section className="property__map map" />
+        <Map city={CityLocation} offers={offers.slice(0, 3)} selectedOffer={activeOffer} additionalClass={'property__map'}/>
       </section>
       <div className="container">
         <section className="near-places places">
           <h2 className="near-places__title">Other places in the neighbourhood</h2>
-          <div className="near-places__list places__list">
-            <article className="near-places__card place-card">
-              <div className="near-places__image-wrapper place-card__image-wrapper">
-                <Link to="/#">
-                  <img className="place-card__image" src="img/room.jpg" width="260" height="200" alt="Place_image" />
-                </Link>
-              </div>
-              <PlaceCardInfo offer={offer.OfferCard}/>
-            </article>
-
-            <article className="near-places__card place-card">
-              <div className="near-places__image-wrapper place-card__image-wrapper">
-                <Link to="/#">
-                  <img className="place-card__image" src="img/apartment-02.jpg" width="260" height="200" alt="Place_image" />
-                </Link>
-              </div>
-              <PlaceCardInfo offer={offer.OfferCard}/>
-            </article>
-
-            <article className="near-places__card place-card">
-              <div className="place-card__mark">
-                <span>Premium</span>
-              </div>
-              <div className="near-places__image-wrapper place-card__image-wrapper">
-                <Link to="/#">
-                  <img className="place-card__image" src="img/apartment-03.jpg" width="260" height="200" alt="Place_image" />
-                </Link>
-              </div>
-              <PlaceCardInfo offer={offer.OfferCard}/>
-            </article>
-          </div>
+          <LocationsList offers={offers.slice(0,3)} setActiveOffer={setActiveOffer} additionalClass={'near-places__list'} additionalClassForCard={'near-places__card'} additionalClassForImage={'near-places__image-wrapper'}/>
         </section>
       </div>
     </main>

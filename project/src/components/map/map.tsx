@@ -10,12 +10,19 @@ import {Offers} from '../../types/offer';
 type MapScreenProps = {
   city: City;
   offers: Offers,
-  selectedOffer: string | null
+  selectedOffer?: string | null,
+  additionalClass?: string
 }
 
-function Map({city, offers, selectedOffer}: MapScreenProps):JSX.Element {
+function Map({city, offers, selectedOffer, additionalClass}: MapScreenProps):JSX.Element {
   const mapRef = useRef(null);
   const map = useMap(mapRef, city);
+
+  const cls = ['map'];
+
+  if (additionalClass) {
+    cls.push(additionalClass);
+  }
 
   const defaultCustomIcon = leaflet.icon({
     iconUrl: UrlMarker.Default,
@@ -42,11 +49,11 @@ function Map({city, offers, selectedOffer}: MapScreenProps):JSX.Element {
           .addTo(map);
       });
     }
-  }, [map, offers, selectedOffer]);
+  }, [map, offers, selectedOffer, defaultCustomIcon, currentCustomIcon]);
 
   return (
     <section
-      className="cities__map map"
+      className={cls.join(' ')}
       ref={mapRef}
     />
   );

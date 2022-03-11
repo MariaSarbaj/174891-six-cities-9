@@ -10,7 +10,7 @@ import Property from '../property/property';
 import ErrorPage from '../404/404';
 
 import {Offers, Offer} from '../../types/offer';
-import {Reviews, Review} from '../../types/review';
+import {Reviews} from '../../types/review';
 
 type AppScreenProps = {
   offersNumber: number,
@@ -21,7 +21,6 @@ type AppScreenProps = {
 
 function App({offersNumber, offers, reviews, selectedOffer}: AppScreenProps): JSX.Element {
   const [offer] = offers;
-  const [review] = reviews;
 
   return (
     <BrowserRouter>
@@ -35,7 +34,7 @@ function App({offersNumber, offers, reviews, selectedOffer}: AppScreenProps): JS
             </PrivateRoute>
           }
           />
-          <Route path={AppRoute.Room} element={<Property offer={offer as Offer} review={review as Review}/>} />
+          <Route path={AppRoute.Room} element={<Property offer={offer as Offer} offers={offers} reviews={reviews}/>} />
         </Route>
         <Route path='*' element={<ErrorPage />} />
       </Routes>

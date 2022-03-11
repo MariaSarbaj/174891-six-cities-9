@@ -63,11 +63,11 @@ function HomePage({offersNumber, offers, selectedOffer}: HomePageScreenProps): J
               </ul>
             </form>
 
-            <LocationsList offers={offers} setActiveOffer={setActiveOffer}/>
+            <LocationsList offers={offers} setActiveOffer={setActiveOffer} additionalClass={'cities__places-list'} additionalClassForCard={'cities__place-card'} additionalClassForImage={'cities__image-wrapper'}/>
 
           </section>
           <div className="cities__right-section">
-            <Map city={CityLocation} offers={offers} selectedOffer={activeOffer}/>
+            <Map city={CityLocation} offers={offers} selectedOffer={activeOffer} additionalClass={'cities__map'}/>
           </div>
         </div>
       </div>
