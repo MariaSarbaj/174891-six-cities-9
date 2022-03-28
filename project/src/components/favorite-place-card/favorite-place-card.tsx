@@ -4,10 +4,10 @@ import {useState} from 'react';
 
 import PlaceCardInfo from '../place-card-info/place-card-info';
 
-import {OfferCard} from '../../types/offer';
+import {Offer} from '../../types/offers';
 
 type FavoritePlaceCardScreenProps = {
-  offer: OfferCard
+  offer: Offer
 }
 
 function FavoritePlaceCard(offer: FavoritePlaceCardScreenProps): JSX.Element {
@@ -19,11 +19,11 @@ function FavoritePlaceCard(offer: FavoritePlaceCardScreenProps): JSX.Element {
       onMouseOver={() => setIsActive(!isActive)}
     >
       <div className="place-card__mark">
-        <span>{offer.offer.mark}</span>
+        <span>{offer.offer.isPremium}</span>
       </div>
       <div className="favorites__image-wrapper place-card__image-wrapper">
         <Link to='#'>
-          <img className="place-card__image" src={offer.offer.src[0]} width="150" height="110" alt="Place_image" />
+          <img className="place-card__image" src={offer.offer.previewImage} width="150" height="110" alt="Place_image" />
         </Link>
       </div>
       <div className="favorites__card-info place-card__info">

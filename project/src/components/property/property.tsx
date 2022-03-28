@@ -3,15 +3,13 @@ import ReviewForm from '../reviews-form/reviews-form';
 import ReviewsList from '../reviews-list/reviews-list';
 import Map from '../map/map';
 
-import {Offer, Offers} from '../../types/offer';
+import {Offers} from '../../types/offers';
 import {Reviews} from '../../types/review';
-import {CityLocation} from '../../mocks/city';
 import LocationsList from '../locations-list/locations-list';
 
 type PropertyScreenProps = {
-  offer: Offer,
-  offers: Offers
-  reviews: Reviews,
+  offers: Offers,
+  reviews: Reviews
 }
 
 function getPropertyImage(src: string, key: number): JSX.Element {
@@ -30,15 +28,16 @@ function getPropertyInsideItem(item: string, key: number): JSX.Element {
   );
 }
 
-function Property({offer, reviews, offers}: PropertyScreenProps): JSX.Element {
-  const [activeOffer, setActiveOffer] = useState(null as string | null);
+function Property({reviews, offers}: PropertyScreenProps): JSX.Element {
+  const [activeOffer, setActiveOffer] = useState(null as number | null);
+  const offer = offers[0];
 
   return (
     <main className="page__main page__main--property">
       <section className="property">
         <div className="property__gallery-container container">
           <div className="property__gallery">
-            {offer.OfferCard.src.map((src: string, index: number) =>
+            {offer.images.map((src: string, index: number) =>
               getPropertyImage(src, index),
             )}
           </div>
@@ -46,11 +45,11 @@ function Property({offer, reviews, offers}: PropertyScreenProps): JSX.Element {
         <div className="property__container container">
           <div className="property__wrapper">
             <div className="property__mark">
-              <span>{offer.OfferCard.mark}</span>
+              <span>{offer.isPremium}</span>
             </div>
             <div className="property__name-wrapper">
               <h1 className="property__name">
-                {offer.OfferCard.title}
+                {offer.title}
               </h1>
               <button className="property__bookmark-button button" type="button">
                 <svg className="property__bookmark-icon" width="31" height="33">
@@ -68,17 +67,17 @@ function Property({offer, reviews, offers}: PropertyScreenProps): JSX.Element {
             </div>
             <ul className="property__features">
               <li className="property__feature property__feature--entire">
-                {offer.OfferCard.features.entire}
+                {offer.type}
               </li>
               <li className="property__feature property__feature--bedrooms">
-                {offer.OfferCard.features.bedrooms} Bedrooms
+                {offer.bedrooms} Bedrooms
               </li>
               <li className="property__feature property__feature--adults">
-                Max {offer.OfferCard.features.adults} adults
+                Max {offer.maxAdults} adults
               </li>
             </ul>
             <div className="property__price">
-              <b className="property__price-value">&euro;{offer.OfferCard.price}</b>
+              <b className="property__price-value">&euro;{offer.price}</b>
               <span className="property__price-text">&nbsp;night</span>
             </div>
             <div className="property__inside">
@@ -93,13 +92,13 @@ function Property({offer, reviews, offers}: PropertyScreenProps): JSX.Element {
               <h2 className="property__host-title">Meet the host</h2>
               <div className="property__host-user user">
                 <div className="property__avatar-wrapper property__avatar-wrapper--pro user__avatar-wrapper">
-                  <img className="property__avatar user__avatar" src={offer.host.src} width="74" height="74" alt="Host avatar" />
+                  <img className="property__avatar user__avatar" src={offer.host.avatarUrl} width="74" height="74" alt="Host avatar" />
                 </div>
                 <span className="property__user-name">
                   {offer.host.name}
                 </span>
                 <span className="property__user-status">
-                  {offer.host.status}
+                  {offer.host.isPro}
                 </span>
               </div>
               <div className="property__description">
@@ -118,12 +117,12 @@ function Property({offer, reviews, offers}: PropertyScreenProps): JSX.Element {
             </section>
           </div>
         </div>
-        <Map city={CityLocation} offers={offers.slice(0, 3)} selectedOffer={activeOffer} additionalClass={'property__map'}/>
+        <Map city={offer.city} offers={offers.slice(0, 3)} selectedOffer={activeOffer} additionalClass={'property__map'}/>
       </section>
       <div className="container">
         <section className="near-places places">
           <h2 className="near-places__title">Other places in the neighbourhood</h2>
-          <LocationsList offers={offers.slice(0,3)} setActiveOffer={setActiveOffer} additionalClass={'near-places__list'} additionalClassForCard={'near-places__card'} additionalClassForImage={'near-places__image-wrapper'}/>
+          <LocationsList offers={offers.slice(0,3)} setActiveOffer={setActiveOffer} additionalClass={'near-places__list'} additionalClassForCard={'near-places__card'} additionalClassForImage={'near-places__image-wrapper'} activeOffer={activeOffer}/>
         </section>
       </div>
     </main>
