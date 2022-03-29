@@ -1,9 +1,9 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
-import {OfferCard} from '../../types/offer';
+import {Offer} from '../../types/offers';
 
 type PlaceCardInfoScreenProps = {
-  offer: OfferCard
+  offer: Offer
 }
 
 function PlaceCardInfo(offer: PlaceCardInfoScreenProps): JSX.Element {
@@ -30,7 +30,7 @@ function PlaceCardInfo(offer: PlaceCardInfoScreenProps): JSX.Element {
       <h2 className="place-card__name">
         <Link to="/#">{offer.offer.title}</Link>
       </h2>
-      <p className="place-card__type">{offer.offer.features.entire}</p>
+      <p className="place-card__type">{offer.offer.type}</p>
     </>
   );
 }

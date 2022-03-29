@@ -8,33 +8,36 @@ import PrivateRoute from '../private-route/private-route';
 import Favorites from '../favorites/favorites';
 import Property from '../property/property';
 import ErrorPage from '../404/404';
+import { Provider } from 'react-redux';
+import store from '../../store';
 
-import {Offers, Offer} from '../../types/offer';
-import {Reviews} from '../../types/review';
-
-type AppScreenProps = {
-  offersNumber: number,
-  offers: Offers,
-  reviews: Reviews,
-  selectedOffer: string | null
-}
-
-function App({offersNumber, offers, reviews, selectedOffer}: AppScreenProps): JSX.Element {
-  const [offer] = offers;
+function App(): JSX.Element {
 
   return (
     <BrowserRouter>
       <Routes>
-        <Route path={AppRoute.Main} element={<Layout offersNumber = {offersNumber} />}>
-          <Route index element={<HomePage offersNumber = {offersNumber} offers={offers} selectedOffer={selectedOffer}/>} />
+        <Route path={AppRoute.Main} element={<Layout />}>
+          <Route index element={
+            <Provider store={store}>
+              <HomePage />
+            </Provider>
+          }
+          />
           <Route path={AppRoute.SignIn} element={<Login />} />
           <Route path={AppRoute.Favorites} element={
             <PrivateRoute authorizationStatus={AuthorizationStatus.Auth}>
-              <Favorites offers={offers}/>
+              <Provider store={store}>
+                <Favorites />
+              </Provider>
             </PrivateRoute>
           }
           />
-          <Route path={AppRoute.Room} element={<Property offer={offer as Offer} offers={offers} reviews={reviews}/>} />
+          <Route path={AppRoute.Room} element={
+            <Provider store={store}>
+              <Property />
+            </Provider>
+          }
+          />
         </Route>
         <Route path='*' element={<ErrorPage />} />
       </Routes>

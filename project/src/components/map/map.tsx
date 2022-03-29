@@ -4,13 +4,13 @@ import 'leaflet/dist/leaflet.css';
 
 import {UrlMarker} from '../../const';
 import useMap from '../../hooks/useMap';
-import {City} from '../../types/city';
-import {Offers} from '../../types/offer';
+import {City} from '../../types/offers';
+import {Offers} from '../../types/offers';
 
 type MapScreenProps = {
   city: City;
   offers: Offers,
-  selectedOffer?: string | null,
+  selectedOffer?: number | null,
   additionalClass?: string
 }
 
@@ -41,10 +41,10 @@ function Map({city, offers, selectedOffer, additionalClass}: MapScreenProps):JSX
       offers.forEach((offer) => {
         leaflet
           .marker({
-            lat: offer.lat,
-            lng: offer.lng,
+            lat: offer.location.lat,
+            lng: offer.location.lng,
           }, {
-            icon: (selectedOffer !== undefined && offer.OfferCard.title === selectedOffer ? currentCustomIcon : defaultCustomIcon),
+            icon: (selectedOffer !== undefined && offer.id === selectedOffer ? currentCustomIcon : defaultCustomIcon),
           })
           .addTo(map);
       });

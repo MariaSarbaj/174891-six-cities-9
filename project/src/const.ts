@@ -12,6 +12,14 @@ export enum AuthorizationStatus {
 }
 
 export enum UrlMarker {
-  Default = 'https://assets.htmlacademy.ru/content/intensive/javascript-1/demo/interactive-map/pin.svg',
-  Current = 'https://assets.htmlacademy.ru/content/intensive/javascript-1/demo/interactive-map/main-pin.svg'
+  Default = 'pin.svg',
+  Current = 'pin-active.svg'
 }
+
+export const cityNames = ['Paris', 'Cologne', 'Brussels', 'Amsterdam', 'Hamburg', 'Dusseldorf'];
+
+export const IMG_URL = 'img/';
+
+export const MIN_REVIEW_LENGTH = 50;
+
+export const MAX_STARS_RATING = 5;

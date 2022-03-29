@@ -3,13 +3,12 @@ import {Link} from 'react-router-dom';
 
 import FavoritePlaceCard from '../favorite-place-card/favorite-place-card';
 
-import {OfferCard, Offers} from '../../types/offer';
+import { useAppSelector } from '../../hooks';
 
-type FavoritesScreenProps = {
-  offers: Offers
-}
+import {Offer} from '../../types/offers';
 
-function Favorites({offers}: FavoritesScreenProps): JSX.Element {
+function Favorites(): JSX.Element {
+  const { offers} = useAppSelector((state) => state);
   const [offer] = offers;
 
   return (
@@ -27,9 +26,9 @@ function Favorites({offers}: FavoritesScreenProps): JSX.Element {
                 </div>
               </div>
               <div className="favorites__places">
-                <FavoritePlaceCard offer={offer.OfferCard as OfferCard}/>
+                <FavoritePlaceCard offer={offer as Offer}/>
 
-                <FavoritePlaceCard offer={offer.OfferCard as OfferCard}/>
+                <FavoritePlaceCard offer={offer as Offer}/>
               </div>
             </li>
 
@@ -42,7 +41,7 @@ function Favorites({offers}: FavoritesScreenProps): JSX.Element {
                 </div>
               </div>
               <div className="favorites__places">
-                <FavoritePlaceCard offer={offer.OfferCard as OfferCard}/>
+                <FavoritePlaceCard offer={offer as Offer}/>
               </div>
             </li>
           </ul>

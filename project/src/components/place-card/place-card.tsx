@@ -3,13 +3,13 @@ import {Link} from 'react-router-dom';
 
 import PlaceCardInfo from '../place-card-info/place-card-info';
 
-import {OfferCard} from '../../types/offer';
+import {Offer} from '../../types/offers';
 
 type PlaceCardScreenProps = {
-  offer: OfferCard,
-  mouseOverHandler: (x: string) => void,
+  offer: Offer,
+  mouseOverHandler: (x: number) => void,
   additionalClassForCard: string,
-  additionalClassForImage: string,
+  additionalClassForImage?: string,
 }
 
 function PlaceCard({offer, mouseOverHandler, additionalClassForCard, additionalClassForImage}: PlaceCardScreenProps): JSX.Element {
@@ -29,7 +29,7 @@ function PlaceCard({offer, mouseOverHandler, additionalClassForCard, additionalC
     if(additionalClassForCard === 'cities__place-card') {
       return (
         <div className="place-card__mark">
-          <span>{offer.mark}</span>
+          <span>{offer.isPremium}</span>
         </div>
       );
     }
@@ -39,14 +39,14 @@ function PlaceCard({offer, mouseOverHandler, additionalClassForCard, additionalC
     <article
       className={classForCard.join(' ')}
       onMouseOver={() => {
-        mouseOverHandler(offer.title);
+        mouseOverHandler(offer.id);
       }}
     >
 
       {setPlaceMark()}
       <div className={classForImage.join(' ')}>
         <Link to="/#">
-          <img className="place-card__image" src={offer.src[0]} width="260" height="200" alt="Place_image" />
+          <img className="place-card__image" src={offer.previewImage} width="260" height="200" alt="Place_image" />
         </Link>
       </div>
       <div className="place-card__info">

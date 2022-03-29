@@ -3,11 +3,7 @@ import {Outlet} from 'react-router-dom';
 
 import Header from '../header/header';
 
-type LayoutScreenProps = {
-  offersNumber: number;
-}
-
-function Layout({offersNumber}: LayoutScreenProps): JSX.Element {
+function Layout(): JSX.Element {
   return (
     <>
       <Header />
