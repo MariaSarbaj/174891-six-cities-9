@@ -3,13 +3,12 @@ import {Link} from 'react-router-dom';
 
 import FavoritePlaceCard from '../favorite-place-card/favorite-place-card';
 
-import {Offer, Offers} from '../../types/offers';
+import { useAppSelector } from '../../hooks';
 
-type FavoritesScreenProps = {
-  offers: Offers
-}
+import {Offer} from '../../types/offers';
 
-function Favorites({offers}: FavoritesScreenProps): JSX.Element {
+function Favorites(): JSX.Element {
+  const { offers} = useAppSelector((state) => state);
   const [offer] = offers;
 
   return (

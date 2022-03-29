@@ -8,11 +8,12 @@ type HomePageContentProps = {
   setActiveOffer: (x: number | null) => void,
   offers: Offers,
   city: City,
+  activeOffer: number | null
 }
 
 function HomePageContent(props: HomePageContentProps): JSX.Element {
   const cityName = useAppSelector((state) => state.city);
-  const { setActiveOffer, offers, city} = props;
+  const { setActiveOffer, offers, city, activeOffer} = props;
   return (
     <div className="cities__places-container container">
       <section className="cities__places places">
@@ -36,7 +37,7 @@ function HomePageContent(props: HomePageContentProps): JSX.Element {
         <LocationsList setActiveOffer={setActiveOffer} offers={offers} additionalClassForCard="main" />
       </section>
       <div className="cities__right-section">
-        <Map city={city} offers={offers}/>
+        <Map city={city} offers={offers} selectedOffer={activeOffer}/>
       </div>
     </div>
   );

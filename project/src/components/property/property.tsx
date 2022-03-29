@@ -3,14 +3,9 @@ import ReviewForm from '../reviews-form/reviews-form';
 import ReviewsList from '../reviews-list/reviews-list';
 import Map from '../map/map';
 
-import {Offers} from '../../types/offers';
-import {Reviews} from '../../types/review';
 import LocationsList from '../locations-list/locations-list';
 
-type PropertyScreenProps = {
-  offers: Offers,
-  reviews: Reviews
-}
+import { useAppSelector } from '../../hooks';
 
 function getPropertyImage(src: string, key: number): JSX.Element {
   return (
@@ -28,8 +23,10 @@ function getPropertyInsideItem(item: string, key: number): JSX.Element {
   );
 }
 
-function Property({reviews, offers}: PropertyScreenProps): JSX.Element {
-  const [activeOffer, setActiveOffer] = useState(null as number | null);
+function Property(): JSX.Element {
+  const { offers, reviews } = useAppSelector((state) => state);
+
+  const [activeOffer, setActiveOffer] = useState<number | null>(null);
   const offer = offers[0];
 
   return (
@@ -122,7 +119,7 @@ function Property({reviews, offers}: PropertyScreenProps): JSX.Element {
       <div className="container">
         <section className="near-places places">
           <h2 className="near-places__title">Other places in the neighbourhood</h2>
-          <LocationsList offers={offers.slice(0,3)} setActiveOffer={setActiveOffer} additionalClass={'near-places__list'} additionalClassForCard={'near-places__card'} additionalClassForImage={'near-places__image-wrapper'} activeOffer={activeOffer}/>
+          <LocationsList offers={offers.slice(0,3)} setActiveOffer={setActiveOffer} additionalClass={'near-places__list'} additionalClassForCard={'near-places__card'} additionalClassForImage={'near-places__image-wrapper'} />
         </section>
       </div>
     </main>

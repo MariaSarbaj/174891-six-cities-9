@@ -4,14 +4,12 @@ import CityList from '../cities-list/cities-list';
 import HomePageEmpty from '../home-page-empty/home-page-empty';
 import HomePageContent from '../home-page-content/home-page-content';
 
-import { OffersProps } from '../../types/offers';
+import { useAppSelector } from '../../hooks';
 
-type HomePageScreenProps = OffersProps & { city: string }
+function HomePage(): JSX.Element {
+  const { city, offers } = useAppSelector((state) => state);
 
-
-function HomePage(props: HomePageScreenProps): JSX.Element {
-  const [activeOffer, setActiveOffer] = useState(null as number | null);
-  const { city, offers } = props;
+  const [activeOffer, setActiveOffer] = useState<number | null>(null);
   const cityLocation = offers[0].city;
   const sortedByCityOffers = offers.filter((item) => item.city.name === city);
   const isOffersListEmpty = sortedByCityOffers.length === 0;
