@@ -1,3 +1,5 @@
+import { OffersSortingType } from './types/other-types';
+
 export enum AppRoute {
   Main = '/',
   SignIn = '/login',
@@ -23,3 +25,5 @@ export const IMG_URL = 'img/';
 export const MIN_REVIEW_LENGTH = 50;
 
 export const MAX_STARS_RATING = 5;
+
+export const offersSortingVariants: OffersSortingType[] = ['none', 'byPriceUp', 'byPriceDown', 'byRatingDown'];
