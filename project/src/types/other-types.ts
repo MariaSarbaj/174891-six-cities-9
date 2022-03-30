@@ -17,6 +17,7 @@ export type Comment = {
   rating: number,
   user: Omit<User, 'email' | 'token'>,
 }
+
 export type Comments = Comment[];
 export type MapType = 'main' | 'room';
 export type MarkType = 'placeCard' | 'room';
@@ -34,3 +35,5 @@ export type User = {
   name: string,
   token: string,
 }
+
+export type OffersSortingType = 'none' | 'byPriceUp' | 'byPriceDown' | 'byRatingDown';
