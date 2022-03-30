@@ -10,24 +10,15 @@ import {OffersSortingType} from '../../types/other-types';
 function getCompareFunction(type: OffersSortingType): (a: Offer, b: Offer) => number {
   const mapping = {
     none: () => 0,
-    byPriceUp: (a: Offer, b: Offer) => {
-      if (a.price === b.price) {
-        return 0;
-      }
-      return a.price > b.price ? 1 : -1;
-    },
-    byPriceDown: (a: Offer, b: Offer) => {
-      if (a.price === b.price) {
-        return 0;
-      }
-      return a.price < b.price ? 1 : -1;
-    },
-    byRatingDown: (a: Offer, b: Offer) => {
-      if (a.rating === b.rating) {
-        return 0;
-      }
-      return a.rating > b.rating ? -1 : 1;
-    },
+    byPriceUp: (a: Offer, b: Offer) =>
+      a.price > b.price ? 1 : -1
+    ,
+    byPriceDown: (a: Offer, b: Offer) =>
+      a.price < b.price ? 1 : -1
+    ,
+    byRatingDown: (a: Offer, b: Offer) =>
+      a.rating > b.rating ? -1 : 1
+    ,
   };
   return mapping[type];
 }

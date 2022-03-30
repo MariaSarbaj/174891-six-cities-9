@@ -3,16 +3,7 @@ import React from 'react';
 import { useState } from 'react';
 import { offersSortingVariants } from '../../const';
 import {OffersSortingType} from '../../types/other-types';
-
-const getTextBySortingType = (type: OffersSortingType) => {
-  const mapping = {
-    none: 'Popular',
-    byPriceUp: 'Price: low to high',
-    byPriceDown: 'Price: high to low',
-    byRatingDown: 'Top rated first',
-  };
-  return mapping[type];
-};
+import {getTextBySortingType} from '../../utils';
 
 type SortingMenuProps = {
   setSorting: (type: OffersSortingType) => void,
