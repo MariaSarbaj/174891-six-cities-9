@@ -4,7 +4,7 @@ import SortingMenu from '../sorting-menu/sorting-menu';
 import LocationsList from '../locations-list/locations-list';
 import Map from '../../components/map/map';
 import { useAppSelector } from '../../hooks';
-import { Offers, Offer, City } from '../../types/offers';
+import { Offers, Offer} from '../../types/offers';
 import {OffersSortingType} from '../../types/other-types';
 
 function getCompareFunction(type: OffersSortingType): (a: Offer, b: Offer) => number {
@@ -26,16 +26,16 @@ function getCompareFunction(type: OffersSortingType): (a: Offer, b: Offer) => nu
 type HomePageContentProps = {
   setActiveOffer: (x: number | null) => void,
   offers: Offers,
-  city: City,
-  activeOffer: number | null
+  activeOffer: number | null,
 }
 
 function HomePageContent(props: HomePageContentProps): JSX.Element {
   const cityName = useAppSelector((state) => state.city);
-  const { setActiveOffer, offers, city, activeOffer} = props;
+  const { setActiveOffer, offers, activeOffer} = props;
   const [sortingType, setSortingType] = useState<OffersSortingType>('none');
 
-  const sortedOffers = [...offers].sort(getCompareFunction(sortingType));
+  const sortedOffers: Offers = [...offers].sort(getCompareFunction(sortingType));
+  const city = sortedOffers[0].city;
 
   return (
     <div className="cities__places-container container">

@@ -10,7 +10,6 @@ function HomePage(): JSX.Element {
   const { city, offers } = useAppSelector((state) => state);
 
   const [activeOffer, setActiveOffer] = useState<number | null>(null);
-  const cityLocation = offers[0].city;
   const sortedByCityOffers = offers.filter((item) => item.city.name === city);
   const isOffersListEmpty = sortedByCityOffers.length === 0;
 
@@ -18,12 +17,12 @@ function HomePage(): JSX.Element {
     <main className={`page__main page__main--index${isOffersListEmpty && ' page__main--index-empty'}`}>
       <h1 className="visually-hidden">Cities</h1>
       <div className="tabs">
-        <CityList city={city} />
+        <CityList />
       </div>
       <div className="cities">
         {isOffersListEmpty
           ? <HomePageEmpty />
-          : <HomePageContent setActiveOffer={setActiveOffer} offers={sortedByCityOffers} city={cityLocation} activeOffer={activeOffer}/>}
+          : <HomePageContent setActiveOffer={setActiveOffer} offers={sortedByCityOffers} activeOffer={activeOffer}/>}
       </div>
     </main>
   );

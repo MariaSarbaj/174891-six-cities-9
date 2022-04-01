@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {BrowserRouter, Route, Routes} from 'react-router-dom';
 import {AppRoute, AuthorizationStatus} from '../../const';
 import Layout from '../layout/layout';
@@ -10,8 +10,16 @@ import Property from '../property/property';
 import ErrorPage from '../404/404';
 import { Provider } from 'react-redux';
 import store from '../../store';
+import {useAppDispatch} from '../../hooks';
+import { fetchOffersAction } from '../../store/api-actions';
 
 function App(): JSX.Element {
+
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(fetchOffersAction);
+  }, [dispatch]);
 
   return (
     <BrowserRouter>

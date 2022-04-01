@@ -34,3 +34,11 @@ export enum Mapping {
   byPriceDown = 'Price: high to low',
   byRatingDown = 'Top rated first',
 }
+
+export enum APIRoute {
+  Comments = '/comments',
+  Favorites = '/favorite',
+  Login = '/login',
+  Logout = '/logout',
+  Offers = '/hotels',
+}

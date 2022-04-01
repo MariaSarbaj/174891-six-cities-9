@@ -1,10 +1,10 @@
 import React from 'react';
-import { useAppDispatch } from '../../hooks';
+import { useAppDispatch, useAppSelector } from '../../hooks';
 import { setCityName } from '../../store/reducers/city-reducer';
 import { cityNames } from '../../const';
 
-function CityList(props: { city: string }) {
-  const { city } = props;
+function CityList() {
+  const { city } = useAppSelector((state) => state);
   const dispatch = useAppDispatch();
 
   function handleClick(cityName: string) {

@@ -1,11 +1,21 @@
-import React, {useState} from 'react';
+import React, {useEffect} from 'react';
+import {useNavigate} from 'react-router-dom';
 import ReviewForm from '../reviews-form/reviews-form';
 import ReviewsList from '../reviews-list/reviews-list';
 import Map from '../map/map';
 
+import {Offers, Offer} from '../../types/offers';
+
 import LocationsList from '../locations-list/locations-list';
 
 import { useAppSelector } from '../../hooks';
+
+function getProcessedOffersData(offers: Offers) {
+  return offers.reduce((acc: { [offerId: string]: Offer}, offer: Offer) => {
+    acc[offer.id] = offer;
+    return acc;
+  }, {});
+}
 
 function getPropertyImage(src: string, key: number): JSX.Element {
   return (
@@ -23,11 +33,26 @@ function getPropertyInsideItem(item: string, key: number): JSX.Element {
   );
 }
 
-function Property(): JSX.Element {
+function Property(): JSX.Element | null {
+  const navigate = useNavigate();
   const { offers, reviews } = useAppSelector((state) => state);
+  const offersStore = getProcessedOffersData(offers);
 
-  const [activeOffer, setActiveOffer] = useState<number | null>(null);
-  const offer = offers[0];
+  const currentPath = document.location.pathname;
+  const [, , offerId] = currentPath.split('/');
+  const offer = offersStore[offerId];
+
+  useEffect(() => {
+    if (!offer) {
+      navigate('/notfound', { replace: true });
+    }
+  });
+
+  if (!offer) {
+    return null;
+  }
+
+  const cityLocation = offer.city;
 
   return (
     <main className="page__main page__main--property">
@@ -60,7 +85,7 @@ function Property(): JSX.Element {
                 <span style={{width: '80%'}} />
                 <span className="visually-hidden">Rating</span>
               </div>
-              <span className="property__rating-value rating__value">{offer.rating}</span>
+              <span className="property__rating-value rating__value">{offer.rating.toFixed(1)}</span>
             </div>
             <ul className="property__features">
               <li className="property__feature property__feature--entire">
@@ -114,12 +139,12 @@ function Property(): JSX.Element {
             </section>
           </div>
         </div>
-        <Map city={offer.city} offers={offers.slice(0, 3)} selectedOffer={activeOffer} additionalClass={'property__map'}/>
+        <Map city={cityLocation} offers={offers.slice(0, 3)} selectedOffer={Number(offerId)} additionalClass={'property__map'}/>
       </section>
       <div className="container">
         <section className="near-places places">
           <h2 className="near-places__title">Other places in the neighbourhood</h2>
-          <LocationsList offers={offers.slice(0,3)} setActiveOffer={setActiveOffer} additionalClass={'near-places__list'} additionalClassForCard={'near-places__card'} additionalClassForImage={'near-places__image-wrapper'} />
+          <LocationsList offers={offers.slice(0,3)} additionalClass={'near-places__list'} additionalClassForCard={'near-places__card'} additionalClassForImage={'near-places__image-wrapper'} />
         </section>
       </div>
     </main>

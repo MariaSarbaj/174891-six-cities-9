@@ -9,26 +9,30 @@ function useMap(
   const [map, setMap] = useState<Map | null>(null);
 
   useEffect(() => {
-    if (mapRef.current !== null && map === null) {
-      const instance = new Map(mapRef.current, {
-        center: {
-          lat: city.location.lat,
-          lng: city.location.lng,
-        },
-        zoom: city.location.zoom,
-      });
+    if (mapRef.current !== null) {
+      if (map === null) {
+        const instance = new Map(mapRef.current,  {
+          center: {
+            lat: city.location.lat,
+            lng: city.location.lng,
+          },
+          zoom: city.location.zoom,
+        });
 
-      const layer = new TileLayer(
-        'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png',
-        {
-          attribution:
-            '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
-        },
-      );
+        const layer = new TileLayer(
+          'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png',
+          {
+            attribution:
+              '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
+          },
+        );
 
-      instance.addLayer(layer);
+        instance.addLayer(layer);
 
-      setMap(instance);
+        setMap(instance);
+      } else {
+        map.setView([city.location.lat, city.location.lng], city.location.zoom);
+      }
     }
   }, [mapRef, map, city]);
 
