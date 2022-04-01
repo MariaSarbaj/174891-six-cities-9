@@ -42,3 +42,5 @@ export enum APIRoute {
   Logout = '/logout',
   Offers = '/hotels',
 }
+
+export const TileLayerURL = 'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png';
