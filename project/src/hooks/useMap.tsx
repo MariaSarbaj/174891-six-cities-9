@@ -10,8 +10,8 @@ function useMap(
   const [map, setMap] = useState<Map | null>(null);
 
   useEffect(() => {
-    if (mapRef.current !== null) {
-      if (map === null) {
+    if (mapRef.current) {
+      if (!map) {
         const instance = new Map(mapRef.current,  {
           center: {
             lat: city.location.lat,
