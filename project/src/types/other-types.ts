@@ -25,8 +25,6 @@ export type PlaceCardType = 'main' | 'room';
 
 export type PlaceCardListType = PlaceCardType;
 
-export type State = ReturnType<typeof store.getState>;
-
 export type User = {
   avatarUrl: string,
   email: string,
@@ -37,3 +35,7 @@ export type User = {
 }
 
 export type OffersSortingType = 'none' | 'byPriceUp' | 'byPriceDown' | 'byRatingDown';
+
+export type AuthorizationStatusType = 'authrized' | 'unauthrized';
+
+export type StateType = ReturnType<typeof store.getState>;

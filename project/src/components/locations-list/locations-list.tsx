@@ -5,7 +5,7 @@ import {Offers, Offer} from '../../types/offers';
 
 type LocationListScreenProps = {
   offers: Offers,
-  setActiveOffer: (x: number | null) => void,
+  setActiveOffer?: (x: number | null) => void,
   additionalClass?: string,
   additionalClassForCard: string,
   additionalClassForImage?: string,
@@ -23,7 +23,7 @@ function LocationsList({offers, setActiveOffer, additionalClass, additionalClass
     <div className={cls.join(' ')}>
 
       {offers.map((offer: Offer) =>
-        <PlaceCard offer={offer as Offer} key={offer.id} additionalClassForCard={additionalClassForCard} additionalClassForImage={additionalClassForImage} mouseOverHandler={(id: number) => {setActiveOffer(id);}}/>,
+        <PlaceCard offer={offer as Offer} key={offer.id} additionalClassForCard={additionalClassForCard} additionalClassForImage={additionalClassForImage} setActiveOffer={setActiveOffer}/>,
       )}
 
     </div>
