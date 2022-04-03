@@ -8,7 +8,7 @@ import {Offers, Offer} from '../../types/offers';
 
 import LocationsList from '../locations-list/locations-list';
 
-import { useAppSelector } from '../../hooks';
+import { useAppSelector } from '../../hooks/hooks';
 
 function getProcessedOffersData(offers: Offers) {
   return offers.reduce((acc: { [offerId: string]: Offer}, offer: Offer) => {

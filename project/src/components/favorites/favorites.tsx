@@ -3,7 +3,7 @@ import {Link} from 'react-router-dom';
 
 import FavoritePlaceCard from '../favorite-place-card/favorite-place-card';
 
-import { useAppSelector } from '../../hooks';
+import { useAppSelector } from '../../hooks/hooks';
 
 import {Offer} from '../../types/offers';
 

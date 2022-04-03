@@ -1,13 +1,10 @@
-import { Offers } from './offers';
-import store from '../store';
-import {Reviews} from './review';
+import store from '../store/store';
 
 export type AppDispatch = typeof store.dispatch;
 
-export type AppState = {
-  city: string,
-  offers: Offers,
-  reviews: Reviews
+export type AuthDataType = {
+  email: FormDataEntryValue | null,
+  password: FormDataEntryValue | null,
 }
 
 export type Comment = {
@@ -15,7 +12,7 @@ export type Comment = {
   date: string,
   id: number,
   rating: number,
-  user: Omit<User, 'email' | 'token'>,
+  user: Omit<UserType, 'email' | 'token'>,
 }
 
 export type Comments = Comment[];
@@ -25,7 +22,7 @@ export type PlaceCardType = 'main' | 'room';
 
 export type PlaceCardListType = PlaceCardType;
 
-export type User = {
+export type UserType = {
   avatarUrl: string,
   email: string,
   id: number,
@@ -36,6 +33,6 @@ export type User = {
 
 export type OffersSortingType = 'none' | 'byPriceUp' | 'byPriceDown' | 'byRatingDown';
 
-export type AuthorizationStatusType = 'authrized' | 'unauthrized';
+export type AuthorizationStatusType = 'authorized' | 'unauthorized';
 
 export type StateType = ReturnType<typeof store.getState>;

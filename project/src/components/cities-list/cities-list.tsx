@@ -1,5 +1,5 @@
 import React from 'react';
-import { useAppDispatch, useAppSelector } from '../../hooks';
+import { useAppDispatch, useAppSelector } from '../../hooks/hooks';
 import { setCityName } from '../../store/reducers/city-reducer';
 import { cityNames } from '../../const';
 

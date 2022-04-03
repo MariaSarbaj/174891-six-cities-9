@@ -4,7 +4,7 @@ import CityList from '../cities-list/cities-list';
 import HomePageEmpty from '../home-page-empty/home-page-empty';
 import HomePageContent from '../home-page-content/home-page-content';
 
-import { useAppSelector } from '../../hooks';
+import { useAppSelector } from '../../hooks/hooks';
 
 function HomePage(): JSX.Element {
   const { city, offers } = useAppSelector((state) => state);

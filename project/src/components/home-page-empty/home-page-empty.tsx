@@ -1,5 +1,5 @@
 import React from 'react';
-import { useAppSelector } from '../../hooks';
+import { useAppSelector } from '../../hooks/hooks';
 
 function HomePageEmpty(): JSX.Element {
   const cityName = useAppSelector((state) => state.city);
