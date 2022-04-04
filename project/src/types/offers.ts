@@ -5,14 +5,6 @@ export type City = {
   name: string,
 }
 
-export type Comment = {
-  comment: string,
-  date: string,
-  id: number,
-  rating: number,
-  user: Omit<UserType, 'email' | 'token'>,
-}
-
 export type Host = {
   avatarUrl: string,
   id: number,
@@ -57,9 +49,9 @@ export type OffersProps = { offers: Offer[] };
 export type Point = Pick<Offer, 'id' | 'location'>;
 
 export type RoomDataType = {
-  room: RoomStateType,
+  property: RoomStateType,
   offersNearby: Offer[];
-  comments: Comment[];
+  reviews: Review[];
 }
 
 export type RoomStateType = Offer | null;
@@ -71,4 +63,12 @@ export type UserType = {
   isPro: boolean,
   name: string,
   token: string,
+}
+
+export type Review = {
+  review: string,
+  date: string,
+  id: number,
+  rating: number,
+  user: Omit<UserType, 'email' | 'token'>,
 }

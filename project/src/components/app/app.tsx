@@ -39,7 +39,7 @@ function App(): JSX.Element {
             </PrivateRoute>
           }
           />
-          <Route path={AppRoute.Room} element={
+          <Route path={AppRoute.RoomId} element={
             <Provider store={store}>
               <Property />
             </Provider>

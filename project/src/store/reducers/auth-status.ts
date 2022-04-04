@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { AuthorizationStatusType } from '../../types/other-types';
+import { successfulAuth, unSuccessfulAuth } from './user-reducer';
 
 const authorizationStatusReducer = createSlice({
   name: 'authorizationStatus',
@@ -9,6 +10,11 @@ const authorizationStatusReducer = createSlice({
       state = action.payload;
       return state;
     },
+  },
+  extraReducers: (builder) => {
+    builder
+      .addCase(successfulAuth, () => 'authorized')
+      .addCase(unSuccessfulAuth, () => 'unauthorized');
   },
 });
 
