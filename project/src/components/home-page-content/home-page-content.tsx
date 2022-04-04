@@ -3,7 +3,7 @@ import {useState} from 'react';
 import SortingMenu from '../sorting-menu/sorting-menu';
 import LocationsList from '../locations-list/locations-list';
 import Map from '../../components/map/map';
-import { useAppSelector } from '../../hooks';
+import { useAppSelector } from '../../hooks/hooks';
 import { Offers, Offer} from '../../types/offers';
 import {OffersSortingType} from '../../types/other-types';
 

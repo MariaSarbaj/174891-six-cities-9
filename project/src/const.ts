@@ -44,3 +44,18 @@ export enum APIRoute {
 }
 
 export const TileLayerURL = 'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png';
+
+export const DEFAULT_USER = {
+  avatarUrl: '',
+  email: '',
+  id: 0,
+  isPro: false,
+  name: '',
+  token: '',
+};
+
+export enum HTTP_CODE {
+  BAD_REQUEST = 400,
+  UNAUTHORIZED = 401,
+  NOT_FOUND = 404,
+}

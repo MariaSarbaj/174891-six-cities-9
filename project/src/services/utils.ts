@@ -1,5 +1,5 @@
-import {OffersSortingType} from './types/other-types';
-import {Mapping} from './const';
+import {OffersSortingType} from '../types/other-types';
+import {Mapping} from '../const';
 
 export const getTextBySortingType = (type: OffersSortingType) => {
   const mapping = Mapping;

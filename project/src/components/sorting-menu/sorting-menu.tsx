@@ -3,7 +3,7 @@ import React from 'react';
 import { useState } from 'react';
 import { offersSortingVariants } from '../../const';
 import {OffersSortingType} from '../../types/other-types';
-import {getTextBySortingType} from '../../utils';
+import {getTextBySortingType} from '../../services/utils';
 
 type SortingMenuProps = {
   setSorting: (type: OffersSortingType) => void,
