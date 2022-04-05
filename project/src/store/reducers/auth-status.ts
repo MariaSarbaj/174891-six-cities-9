@@ -1,10 +1,11 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { AuthorizationStatusType } from '../../types/other-types';
 import { successfulAuth, unSuccessfulAuth } from './user-reducer';
+import {NameSpace} from '../../const';
 
 const authorizationStatusReducer = createSlice({
-  name: 'authorizationStatus',
-  initialState: 'unauthorized',
+  name: NameSpace.auth,
+  initialState: 'unauthorized' as AuthorizationStatusType,
   reducers: {
     setAuthStatus: (state, action:PayloadAction<AuthorizationStatusType>) => {
       state = action.payload;

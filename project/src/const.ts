@@ -67,3 +67,13 @@ export const DEFAULT_PROPERTY_DATA = {
   offersNearby: [],
   property: null,
 };
+
+export enum NameSpace {
+  auth = 'AUTH',
+  city = 'CITY',
+  reviews = 'REVIEWS',
+  offersNearby = 'OFFERS_NEARBY',
+  offers = 'OFFERS',
+  room = 'ROOM',
+  user = 'USER',
+}

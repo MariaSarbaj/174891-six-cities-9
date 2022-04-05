@@ -1,29 +1,29 @@
-import React from 'react';
+import React, {memo} from 'react';
 import PlaceCard from '../place-card/place-card';
+import cn from 'classnames';
+import {LocationsListType} from '../../types/other-types';
 
-import {Offers, Offer} from '../../types/offers';
+import { Offer} from '../../types/offers';
 
 type LocationListScreenProps = {
-  offers: Offers,
+  offers: Offer[],
   setActiveOffer?: (x: number | null) => void,
-  additionalClass?: string,
-  additionalClassForCard: string,
-  additionalClassForImage?: string,
+  locationsListType: LocationsListType,
 }
 
-function LocationsList({offers, setActiveOffer, additionalClass, additionalClassForCard, additionalClassForImage}: LocationListScreenProps):JSX.Element {
+function LocationsList({offers, setActiveOffer, locationsListType}: LocationListScreenProps):JSX.Element {
 
-  const cls = ['places__list'];
-
-  if (additionalClass) {
-    cls.push(additionalClass);
-  }
+  const cardClassName = cn('places__list', {
+    'cities__places-list': locationsListType === 'main',
+    'tabs__content': locationsListType === 'main',
+    'near-places__list': locationsListType === 'room',
+  });
 
   return (
-    <div className={cls.join(' ')}>
+    <div className={cardClassName}>
 
-      {offers.map((offer: Offer) =>
-        <PlaceCard offer={offer as Offer} key={offer.id} additionalClassForCard={additionalClassForCard} additionalClassForImage={additionalClassForImage} setActiveOffer={setActiveOffer}/>,
+      {offers.map((offer) =>
+        <PlaceCard offer={offer} key={offer.id} setActiveOffer={setActiveOffer} placeCardType="main"/>,
       )}
 
     </div>
@@ -31,4 +31,9 @@ function LocationsList({offers, setActiveOffer, additionalClass, additionalClass
   );
 }
 
-export default LocationsList;
+export default memo(LocationsList, (prevProps, nextProps) => {
+  const isOfferIdsEqual = (prevOffers: Offer[], nextOffers: Offer[]) => prevOffers.every(
+    (item, index) => item.id === nextOffers[index].id);
+  return isOfferIdsEqual(prevProps.offers, nextProps.offers)
+    && prevProps.locationsListType === nextProps.locationsListType;
+});
