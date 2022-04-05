@@ -1,13 +1,16 @@
-import {Dispatch} from '@reduxjs/toolkit';
-import {toast} from 'react-toastify';
-import {setOffers} from './reducers/offers-reducer';
-import {APIRoute, AppRoute, DEFAULT_USER} from '../const';
+import { Dispatch } from '@reduxjs/toolkit';
+import { setOffers } from './reducers/offers-reducer';
+import { successfulAuth, unSuccessfulAuth } from './reducers/user-reducer';
+import { setRoomData } from './reducers/room-reducer';
+import {setReviews} from './reducers/reviews-reducer';
+import { redirectToRoute } from './actions';
+import { APIRoute, AppRoute } from '../const';
 import { AxiosInstance, AxiosResponse } from 'axios';
-import {StateType, AuthDataType} from '../types/other-types';
-import {setAuthStatus} from './reducers/auth-status';
-import {setUser} from './reducers/user-reducer';
-import {redirectToRoute} from './actions';
-import {errorHandle} from '../services/error-handle';
+import { toast } from 'react-toastify';
+import { errorHandle } from '../services/error-handle';
+import { saveToken, dropToken } from '../services/token';
+import { DEFAULT_PROPERTY_DATA } from '../const';
+import { StateType, AuthDataType, ReviewFormDataType } from '../types/other-types';
 
 export const fetchOffersAction = (nextDispatch: Dispatch, getState: () => StateType, api: AxiosInstance) => {
   toast.promise(api.get(APIRoute.Offers)
@@ -25,13 +28,12 @@ export const fetchOffersAction = (nextDispatch: Dispatch, getState: () => StateT
 export const checkAuthAction = (nextDispatch: Dispatch, getState: () => StateType, api: AxiosInstance) => {
   toast.promise(api.get(APIRoute.Login)
     .then((response: AxiosResponse) => {
-      nextDispatch(setAuthStatus('authorized'));
-      nextDispatch(setUser(response.data));
+      nextDispatch(successfulAuth(response.data));
     })
     .catch((error) => {
-      nextDispatch(setAuthStatus('unauthorized'));
-      nextDispatch(setUser(DEFAULT_USER));
+      dropToken();
       errorHandle(error);
+      nextDispatch(unSuccessfulAuth());
     }),
   {
     pending: 'Loading...',
@@ -45,16 +47,69 @@ export const authAction = (authData: AuthDataType) => (
 ) => {
   toast.promise(api.post(APIRoute.Login, authData)
     .then((response: AxiosResponse) => {
-      nextDispatch(setAuthStatus('authorized'));
-      nextDispatch(setUser(response.data));
-      nextDispatch(redirectToRoute(AppRoute.Main));
+      saveToken(response.data.token);
+      nextDispatch(successfulAuth(response.data));
     })
     .catch((error) => {
-      nextDispatch(setAuthStatus('unauthorized'));
-      nextDispatch(setUser(DEFAULT_USER));
+      errorHandle(error);
+      nextDispatch(unSuccessfulAuth());
+    }),
+  {
+    pending: 'Loading...',
+  });
+};
+
+export const fetchRoomDataAction = (hotelId: string) =>
+  (nextDispatch: Dispatch, getState: () => StateType, api: AxiosInstance) => {
+    const roomData = DEFAULT_PROPERTY_DATA;
+    toast.promise(api.get(`${APIRoute.Offers}/${hotelId}`)
+      .then((resRoom: AxiosResponse) => {
+        roomData.property = resRoom.data;
+        api.get(`${APIRoute.Offers}/${hotelId}/nearby`)
+          .then((resNearby: AxiosResponse) => {
+            roomData.offersNearby = resNearby.data;
+            api.get(`${APIRoute.Comments}/${hotelId}`)
+              .then((resComment: AxiosResponse) => {
+                roomData.reviews = resComment.data;
+                nextDispatch(setRoomData(roomData));
+              });
+          });
+      })
+      .catch((error) => {
+        errorHandle(error);
+        nextDispatch(setRoomData(DEFAULT_PROPERTY_DATA));
+        nextDispatch(redirectToRoute(AppRoute.NotFound));
+      }),
+    {
+      pending: 'Loading...',
+    });
+  };
+
+export const finishAuthAction = (nextDispatch: Dispatch, getState: () => StateType, api: AxiosInstance) => {
+  toast.promise(api.delete(APIRoute.Logout)
+    .then(() => {
+      dropToken();
+      nextDispatch(unSuccessfulAuth());
+    })
+    .catch((error) => {
       errorHandle(error);
     }),
   {
     pending: 'Loading...',
   });
 };
+
+export const sendCommentAction = (comment: ReviewFormDataType, hotelId: string, restoreFormData: (formData: ReviewFormDataType) => void) =>
+  (nextDispatch: Dispatch, getState: () => StateType, api: AxiosInstance) => {
+    toast.promise(api.post(`${APIRoute.Comments}/${hotelId}`, comment)
+      .then((response: AxiosResponse) => {
+        nextDispatch(setReviews(response.data));
+      })
+      .catch((error) => {
+        errorHandle(error);
+        restoreFormData(comment);
+      }),
+    {
+      pending: 'Loading...',
+    });
+  };

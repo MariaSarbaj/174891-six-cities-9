@@ -4,7 +4,9 @@ export enum AppRoute {
   Main = '/',
   SignIn = '/login',
   Favorites = '/favorites',
-  Room = '/offer/:id',
+  Room = '/offer/',
+  NotFound = '/notfound',
+  RoomId = '/offer/:id'
 }
 
 export enum AuthorizationStatus {
@@ -59,3 +61,9 @@ export enum HTTP_CODE {
   UNAUTHORIZED = 401,
   NOT_FOUND = 404,
 }
+
+export const DEFAULT_PROPERTY_DATA = {
+  reviews: [],
+  offersNearby: [],
+  property: null,
+};

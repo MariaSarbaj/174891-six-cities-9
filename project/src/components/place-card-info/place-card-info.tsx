@@ -1,6 +1,7 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
 import {Offer} from '../../types/offers';
+import { AppRoute } from '../../const';
 
 type PlaceCardInfoScreenProps = {
   offer: Offer
@@ -28,7 +29,7 @@ function PlaceCardInfo(offer: PlaceCardInfoScreenProps): JSX.Element {
         </div>
       </div>
       <h2 className="place-card__name">
-        <Link to="/#">{offer.offer.title}</Link>
+        <Link to={`${AppRoute.Room}${offer.offer.id}`}>{offer.offer.title}</Link>
       </h2>
       <p className="place-card__type">{offer.offer.type}</p>
     </>
