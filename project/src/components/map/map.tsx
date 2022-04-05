@@ -5,11 +5,10 @@ import 'leaflet/dist/leaflet.css';
 
 import {UrlMarker} from '../../const';
 import useMap from '../../hooks/useMap';
-import {City} from '../../types/offers';
-import {Offers} from '../../types/offers';
+import {Offers, Location} from '../../types/offers';
 
 type MapScreenProps = {
-  city: City;
+  city: Location;
   offers: Offers,
   selectedOffer?: number | null,
   additionalClass?: string

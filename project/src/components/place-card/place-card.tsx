@@ -2,41 +2,46 @@ import React from 'react';
 import { useEffect } from 'react';
 import {Link} from 'react-router-dom';
 import useHover from '../../hooks/useHover';
+import cn from 'classnames';
 
 import PlaceCardInfo from '../place-card-info/place-card-info';
 
 import {Offer} from '../../types/offers';
+import { PlaceCardType } from '../../types/other-types';
 
 type PlaceCardScreenProps = {
   offer: Offer,
-  additionalClassForCard: string,
-  additionalClassForImage?: string,
+  placeCardType: PlaceCardType,
   setActiveOffer?: (x: number | null) => void,
 }
 
-function PlaceCard({offer, additionalClassForCard, additionalClassForImage, setActiveOffer}: PlaceCardScreenProps): JSX.Element {
+function PlaceCard(props: PlaceCardScreenProps): JSX.Element {
+  const {
+    placeCardType,
+    setActiveOffer,
+    offer,
+  } = props;
 
   const [hoverRef, isHover] = useHover<HTMLElement>();
 
   useEffect(() => {
-    if (setActiveOffer) {
+    if (setActiveOffer !== undefined) {
       isHover ? setActiveOffer(offer.id) : setActiveOffer(null);
     }
   }, [offer.id, setActiveOffer, isHover]);
 
-  const classForCard = ['place-card'];
-  const classForImage = ['place-card__image-wrapper'];
+  const articleClass = cn('place-card', {
+    'cities__place-card': placeCardType === 'main',
+    'near-places__card': placeCardType === 'room',
+  });
 
-  if(additionalClassForCard) {
-    classForCard.push(additionalClassForCard);
-  }
-
-  if(additionalClassForImage) {
-    classForImage.push(additionalClassForImage);
-  }
+  const imgWrapperClass = cn('place-card__image-wrapper', {
+    'cities__image-wrapper': placeCardType === 'main',
+    'near-places__image-wrapper': placeCardType === 'room',
+  });
 
   const setPlaceMark = () => {
-    if(additionalClassForCard === 'cities__place-card') {
+    if(offer.isPremium) {
       return (
         <div className="place-card__mark">
           <span>{offer.isPremium}</span>
@@ -47,12 +52,11 @@ function PlaceCard({offer, additionalClassForCard, additionalClassForImage, setA
 
   return (
     <article
-      className={classForCard.join(' ')}
+      className={articleClass}
       ref={hoverRef}
     >
-
       {setPlaceMark()}
-      <div className={classForImage.join(' ')}>
+      <div className={imgWrapperClass}>
         <Link to="/#">
           <img className="place-card__image" src={offer.previewImage} width="260" height="200" alt="Place_image" />
         </Link>

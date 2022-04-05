@@ -4,6 +4,7 @@ import ReviewForm from '../reviews-form/reviews-form';
 import ReviewsList from '../reviews-list/reviews-list';
 import Map from '../map/map';
 import HostBlock from '../../components/host-block/host-block';
+import {NameSpace} from '../../const';
 
 import LocationsList from '../locations-list/locations-list';
 
@@ -29,13 +30,14 @@ function getPropertyInsideItem(item: string, key: number): JSX.Element {
 function Property(): JSX.Element | null {
   const dispatch = useAppDispatch();
   const curLocation = useLocation();
-  const {room, offersNearby, authorizationStatus, reviews, offers} = useAppSelector((state) => ({
-    room: state.room,
-    offersNearby: state.offersNearby,
-    authorizationStatus: state.authorizationStatus,
-    reviews: state.reviews,
-    offers: state.offers,
+
+  const {room, offersNearby, reviews, authorizationStatus} = useAppSelector((state) => ({
+    room: state[NameSpace.room],
+    offersNearby: state[NameSpace.offersNearby],
+    reviews: state[NameSpace.reviews],
+    authorizationStatus: state[NameSpace.auth],
   }));
+
   const isAuthorisedUser = authorizationStatus === 'authorized';
 
   const currentPath = curLocation.pathname;
@@ -51,7 +53,7 @@ function Property(): JSX.Element | null {
     return null;
   }
 
-  const cityLocation = room.city;
+  const cityLocation = room.city.location;
 
   return (
     <main className="page__main page__main--property">
@@ -128,12 +130,12 @@ function Property(): JSX.Element | null {
             </section>
           </div>
         </div>
-        <Map city={cityLocation} offers={offers.slice(0, 3)} selectedOffer={Number(offerId)} additionalClass={'property__map'}/>
+        <Map city={cityLocation} offers={offersNearby} selectedOffer={Number(offerId)} additionalClass={'property__map'}/>
       </section>
       <div className="container">
         <section className="near-places places">
           <h2 className="near-places__title">Other places in the neighbourhood</h2>
-          <LocationsList offers={offersNearby} additionalClass={'near-places__list'} additionalClassForCard={'near-places__card'} additionalClassForImage={'near-places__image-wrapper'} />
+          <LocationsList offers={offersNearby} locationsListType="room" />
         </section>
       </div>
     </main>

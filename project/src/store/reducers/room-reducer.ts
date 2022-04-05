@@ -1,8 +1,9 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {RoomStateType, RoomDataType} from '../../types/offers';
+import {NameSpace} from '../../const';
 
 const roomReducer = createSlice({
-  name: 'room',
+  name: NameSpace.room,
   initialState: null as RoomStateType,
   reducers: {
     setRoom: (state, action: PayloadAction<RoomStateType>) => {
@@ -10,7 +11,7 @@ const roomReducer = createSlice({
       return state;
     },
     setRoomData: (state, action: PayloadAction<RoomDataType>) => {
-      state = action.payload.room;
+      state = action.payload.property;
       return state;
     },
   },

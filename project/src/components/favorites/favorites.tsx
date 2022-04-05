@@ -6,9 +6,12 @@ import FavoritePlaceCard from '../favorite-place-card/favorite-place-card';
 import { useAppSelector } from '../../hooks/hooks';
 
 import {Offer} from '../../types/offers';
+import {NameSpace} from '../../const';
 
 function Favorites(): JSX.Element {
-  const { offers} = useAppSelector((state) => state);
+  const {offers} = useAppSelector((state) => ({
+    offers: state[NameSpace.offers],
+  }));
   const [offer] = offers;
 
   return (

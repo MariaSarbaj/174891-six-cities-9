@@ -13,7 +13,7 @@ export type MapType = 'main' | 'room';
 export type MarkType = 'placeCard' | 'room';
 export type PlaceCardType = 'main' | 'room';
 
-export type PlaceCardListType = PlaceCardType;
+export type LocationsListType = PlaceCardType;
 
 export type OffersSortingType = 'none' | 'byPriceUp' | 'byPriceDown' | 'byRatingDown';
 
