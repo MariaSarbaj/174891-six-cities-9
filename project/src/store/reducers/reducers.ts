@@ -6,6 +6,7 @@ import authorizationStatus from './auth-status';
 import user from './user-reducer';
 import room from './room-reducer';
 import offersNearby from './offers-nearby-reducer';
+import favorites from './favorites-reducer';
 import {NameSpace} from '../../const';
 
 const reducer = combineReducers({
@@ -16,6 +17,7 @@ const reducer = combineReducers({
   [NameSpace.offersNearby]: offersNearby.reducer,
   [NameSpace.room]: room.reducer,
   [NameSpace.user]: user.reducer,
+  [NameSpace.favorites]: favorites.reducer,
 });
 
 export default reducer;

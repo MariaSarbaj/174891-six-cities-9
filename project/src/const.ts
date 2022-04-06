@@ -76,4 +76,19 @@ export enum NameSpace {
   offers = 'OFFERS',
   room = 'ROOM',
   user = 'USER',
+  favorites = 'FAVORITES',
 }
+
+export const REVIEW = {
+  MaxCount: 10,
+  MinLength: 50,
+  MaxLength: 300,
+} as const;
+
+export const DEFAULT_LOCATION = {
+  Latitude: 0,
+  Longitude: 0,
+  Zoom: 0,
+} as const;
+
+
