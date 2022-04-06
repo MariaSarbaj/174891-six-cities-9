@@ -11,12 +11,10 @@ export type ReviewFormDataType = { rating: number | null, review: string };
 
 export type MapType = 'main' | 'room';
 export type MarkType = 'placeCard' | 'room';
-export type PlaceCardType = 'main' | 'room';
-
-export type LocationsListType = PlaceCardType;
+export type PlaceCardType = 'favorite' | 'placeCard' | 'placeNearby'| 'room';
 
 export type OffersSortingType = 'none' | 'byPriceUp' | 'byPriceDown' | 'byRatingDown';
 
-export type AuthorizationStatusType = 'authorized' | 'unauthorized';
+export type AuthorizationStatusType = 'authorized' | 'unauthorized' | 'unknown';
 
 export type StateType = ReturnType<typeof store.getState>;

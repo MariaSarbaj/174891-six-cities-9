@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { Offers } from '../../types/offers';
+import { Offer, Offers } from '../../types/offers';
 import {NameSpace} from '../../const';
 
 const offersReducer = createSlice({
@@ -10,9 +10,14 @@ const offersReducer = createSlice({
       state = action.payload;
       return state;
     },
+    replaceOffer: (state, action:PayloadAction<Offer>) => {
+      const newOffer = action.payload;
+      const newState = state.map((offer) => offer.id === newOffer.id ? newOffer : offer);
+      return newState;
+    },
   },
 });
 
-export const { setOffers } = offersReducer.actions;
+export const { setOffers, replaceOffer } = offersReducer.actions;
 
 export default offersReducer;

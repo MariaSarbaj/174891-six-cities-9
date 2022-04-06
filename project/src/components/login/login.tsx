@@ -1,11 +1,22 @@
 import React from 'react';
-import {Link} from 'react-router-dom';
-import {SyntheticEvent} from 'react';
-import {useAppDispatch} from '../../hooks/hooks';
+import {SyntheticEvent, useEffect} from 'react';
+import {useAppDispatch, useAppSelector} from '../../hooks/hooks';
 import {authAction} from '../../store/api-actions';
+import {redirectToRoute} from '../../store/actions';
+import LocationLink from '../../components/location-link/location-link';
+import {getRandomValue} from '../../services/utils';
+import {AppRoute, NameSpace, cityNames} from '../../const';
 
 function Login():JSX.Element {
   const dispatch = useAppDispatch();
+  const cityName = getRandomValue(cityNames);
+  const authStatus = useAppSelector((state) => state[NameSpace.auth]);
+
+  useEffect(() => {
+    if (authStatus === 'authorized') {
+      dispatch(redirectToRoute(AppRoute.Main));
+    }
+  }, [dispatch, authStatus]);
 
   function handleSubmit(evt: SyntheticEvent) {
     evt.preventDefault();
@@ -36,9 +47,7 @@ function Login():JSX.Element {
         </section>
         <section className="locations locations--login locations--current">
           <div className="locations__item">
-            <Link className="locations__item-link" to="/property">
-              <span>Amsterdam</span>
-            </Link>
+            <LocationLink cityName={cityName as string} />
           </div>
         </section>
       </div>

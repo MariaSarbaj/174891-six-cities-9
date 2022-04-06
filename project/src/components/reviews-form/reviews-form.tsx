@@ -2,7 +2,7 @@ import React, {SyntheticEvent, useState, useEffect, Fragment} from 'react';
 import {errorHandle} from '../../services/error-handle';
 import {useAppDispatch, useAppSelector} from '../../hooks/hooks';
 import {sendCommentAction} from '../../store/api-actions';
-import {MIN_REVIEW_LENGTH, MAX_STARS_RATING} from '../../const';
+import {REVIEW, MAX_STARS_RATING} from '../../const';
 import {ReviewFormDataType} from '../../types/other-types';
 import {NameSpace} from '../../const';
 
@@ -44,7 +44,7 @@ function ReviewForm(): JSX.Element {
     if (rating !== null) {
       newCheckboxes[MAX_STARS_RATING - rating] = true;
     }
-    setIsFormValid(rating !== null && review.length >= MIN_REVIEW_LENGTH);
+    setIsFormValid(rating !== null && review.length >= REVIEW.MinLength);
     setCheckboxes(newCheckboxes);
   }, [formData]);
 
@@ -66,7 +66,7 @@ function ReviewForm(): JSX.Element {
           );
         })}
       </div>
-      <textarea className="reviews__textarea form__textarea" id="review" name="review" placeholder="Tell how was your stay, what you like and what can be improved"/>
+      <textarea className="reviews__textarea form__textarea" id="review" name="review" placeholder="Tell how was your stay, what you like and what can be improved" maxLength={REVIEW.MaxLength}/>
       <div className="reviews__button-wrapper">
         <p className="reviews__help">
           To submit review please make sure to set <span className="reviews__star">rating</span> and describe

@@ -1,6 +1,6 @@
 import React from 'react';
 import {Route, Routes} from 'react-router-dom';
-import {AppRoute} from '../../const';
+import {AppRoute, NameSpace} from '../../const';
 import Layout from '../layout/layout';
 import HomePage from '../home-page/home-page';
 import Login from '../login/login';
@@ -12,6 +12,8 @@ import { Provider } from 'react-redux';
 import store from '../../store/store';
 import HistoryRouter from '../history-router/history-router';
 import browserHistory from '../../browser-history';
+import {useAppSelector} from '../../hooks/hooks';
+import LoadingScreen from '../loading-screen/loading-screen';
 
 import {fetchOffersAction, checkAuthAction} from '../../store/api-actions';
 
@@ -19,6 +21,11 @@ store.dispatch(fetchOffersAction);
 store.dispatch(checkAuthAction);
 
 function App(): JSX.Element {
+  const authStatus = useAppSelector((state) => state[NameSpace.auth]);
+
+  if (authStatus === 'unknown') {
+    return <LoadingScreen />;
+  }
 
   return (
     <HistoryRouter history={browserHistory}>

@@ -1,56 +1,38 @@
 import React from 'react';
-import {Link} from 'react-router-dom';
+import {useLayoutEffect} from 'react';
+import cn from 'classnames';
+import {useAppDispatch, useAppSelector} from '../../hooks/hooks';
+import {fetchFavoritesAction} from '../../store/api-actions';
+import FavoritesEmpty from '../../components/favorites-empty/favorites-empty';
+import FavoriteLocationsList from '../favorite-locations-list/favorite-locations-list';
 
-import FavoritePlaceCard from '../favorite-place-card/favorite-place-card';
-
-import { useAppSelector } from '../../hooks/hooks';
-
-import {Offer} from '../../types/offers';
 import {NameSpace} from '../../const';
+import Footer from '../footer/footer';
 
 function Favorites(): JSX.Element {
-  const {offers} = useAppSelector((state) => ({
-    offers: state[NameSpace.offers],
-  }));
-  const [offer] = offers;
+  const dispatch = useAppDispatch();
+  const offers = useAppSelector((state) => state[NameSpace.favorites]);
+  const isFaviritesEmpty = offers.length === 0;
+
+  useLayoutEffect(() => {
+    dispatch(fetchFavoritesAction);
+  }, [dispatch]);
+
+  const mainClassName = cn('page__main', 'page__main--favorites', {
+    'page__main--favorites-empty': isFaviritesEmpty,
+  });
 
   return (
-    <main className="page__main page__main--favorites">
-      <div className="page__favorites-container container">
-        <section className="favorites">
-          <h1 className="favorites__title">Saved listing</h1>
-          <ul className="favorites__list">
-            <li className="favorites__locations-items">
-              <div className="favorites__locations locations locations--current">
-                <div className="locations__item">
-                  <Link className="locations__item-link" to="/#">
-                    <span>Amsterdam</span>
-                  </Link>
-                </div>
-              </div>
-              <div className="favorites__places">
-                <FavoritePlaceCard offer={offer as Offer}/>
-
-                <FavoritePlaceCard offer={offer as Offer}/>
-              </div>
-            </li>
-
-            <li className="favorites__locations-items">
-              <div className="favorites__locations locations locations--current">
-                <div className="locations__item">
-                  <Link className="locations__item-link" to="/#">
-                    <span>Cologne</span>
-                  </Link>
-                </div>
-              </div>
-              <div className="favorites__places">
-                <FavoritePlaceCard offer={offer as Offer}/>
-              </div>
-            </li>
-          </ul>
-        </section>
-      </div>
-    </main>
+    <>
+      <main className={mainClassName}>
+        <div className="page__favorites-container container">
+          {isFaviritesEmpty
+            ? <FavoritesEmpty />
+            : <FavoriteLocationsList offers={offers} />}
+        </div>
+      </main>
+      <Footer />
+    </>
 
   );
 }

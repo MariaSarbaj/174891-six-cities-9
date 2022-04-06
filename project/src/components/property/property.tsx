@@ -4,6 +4,7 @@ import ReviewForm from '../reviews-form/reviews-form';
 import ReviewsList from '../reviews-list/reviews-list';
 import Map from '../map/map';
 import HostBlock from '../../components/host-block/host-block';
+import Bookmark from '../../components/bookmark/bookmark';
 import {NameSpace} from '../../const';
 
 import LocationsList from '../locations-list/locations-list';
@@ -74,12 +75,7 @@ function Property(): JSX.Element | null {
               <h1 className="property__name">
                 {room.title}
               </h1>
-              <button className="property__bookmark-button button" type="button">
-                <svg className="property__bookmark-icon" width="31" height="33">
-                  <use xlinkHref="#icon-bookmark" />
-                </svg>
-                <span className="visually-hidden">To bookmarks</span>
-              </button>
+              <Bookmark hotelId={room.id} isFavorite={room.isFavorite} type="room" />
             </div>
             <div className="property__rating rating">
               <div className="property__stars rating__stars">
@@ -135,7 +131,7 @@ function Property(): JSX.Element | null {
       <div className="container">
         <section className="near-places places">
           <h2 className="near-places__title">Other places in the neighbourhood</h2>
-          <LocationsList offers={offersNearby} locationsListType="room" />
+          <LocationsList offers={offersNearby} locationsListType="placeNearby" />
         </section>
       </div>
     </main>
