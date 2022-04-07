@@ -146,7 +146,7 @@ export const sendReviewAction = createAsyncThunk<void,
     state: State,
     extra: AxiosInstance
   }>(
-      'comments/sendComment',
+      'reviews/sendReview',
       async (reviewData, {dispatch, extra: api}) => {
         const {hotelId, review, onClearReviewForm, onLockReviewForm} = reviewData;
         try {

@@ -1,6 +1,6 @@
 import reviewsProcess, {setReviews} from './reviews-process';
 import {setRoomData} from '../room-process/room-process';
-import makeFakeReviews from '../../mocks/reveiws';
+import makeFakeReviews from '../../mocks/reviews';
 import makeFakeRoomData from '../../mocks/roomData';
 import {Review} from '../../types/offers';
 
@@ -21,6 +21,6 @@ describe('Reducer: reviewsProcess', () => {
   it('should update reviews by set room data', () => {
     const state = [] as Review[];
     expect(reviewsProcess.reducer(state, setRoomData(roomData)))
-      .toEqual(roomData.reveiws);
+      .toEqual(roomData.reviews);
   });
 });
