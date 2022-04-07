@@ -1,24 +1,23 @@
 import React from 'react';
 import { useEffect } from 'react';
 import {Link} from 'react-router-dom';
-import useHover from '../../hooks/useHover';
+import useHover from '../../hooks/use-hover';
 import cn from 'classnames';
 
-import PlaceCardInfo from '../place-card-info/place-card-info';
+import PlaceCardMark from '../place-card-mark/place-card-mark';
+import Bookmark from '../bookmark/bookmark';
+import {PlaceCardProps} from '../../types/other-types';
+import {getAccommodationTitle, getRatingStyleData} from '../../services/utils';
+import {AppRoute} from '../../const';
 
-import {Offer} from '../../types/offers';
-import { PlaceCardType } from '../../types/other-types';
+const getImageSize = (isFavorite: boolean) => isFavorite
+  ? { width: '150', height: '110' }
+  : { width: '260', height: '200' };
 
-type PlaceCardScreenProps = {
-  offer: Offer,
-  placeCardType: PlaceCardType,
-  setActiveOffer?: (x: number | null) => void,
-}
-
-function PlaceCard(props: PlaceCardScreenProps): JSX.Element {
+function PlaceCard(props: PlaceCardProps): JSX.Element {
   const {
     placeCardType,
-    setActiveOffer,
+    onActiveOffer,
     offer,
   } = props;
 
@@ -29,10 +28,10 @@ function PlaceCard(props: PlaceCardScreenProps): JSX.Element {
   const [hoverRef, isHover] = useHover<HTMLElement>();
 
   useEffect(() => {
-    if (setActiveOffer !== undefined) {
-      isHover ? setActiveOffer(offer.id) : setActiveOffer(null);
+    if (onActiveOffer !== undefined) {
+      isHover ? onActiveOffer(offer.id) : onActiveOffer(null);
     }
-  }, [offer.id, setActiveOffer, isHover]);
+  }, [offer.id, onActiveOffer, isHover]);
 
   const articleClass = cn('place-card', {
     'cities__place-card': isTypePlaceCard,
@@ -50,32 +49,38 @@ function PlaceCard(props: PlaceCardScreenProps): JSX.Element {
     'favorites__card-info': isTypeFavorite,
   });
 
-  const width = cn({'260': !isTypeFavorite, '150': isTypeFavorite });
-  const height = cn({'200': !isTypeFavorite, '110': isTypeFavorite });
-
-  const setPlaceMark = () => {
-    if(offer.isPremium) {
-      return (
-        <div className="place-card__mark">
-          <span>{offer.isPremium}</span>
-        </div>
-      );
-    }
-  };
+  const {width, height} = getImageSize(isTypeFavorite);
 
   return (
     <article
       className={articleClass}
       ref={hoverRef}
+      data-testid="place-card"
     >
-      {setPlaceMark()}
-      <div className={imgWrapperClass}>
+      {offer.isPremium && <PlaceCardMark type="placeCard" />}
+      <div className={imgWrapperClass} data-testid="place-card-img-wrapper">
         <Link to="/#">
           <img className="place-card__image" src={offer.previewImage} width={width} height={height} alt="Place_image" />
         </Link>
       </div>
-      <div className={infoClass}>
-        <PlaceCardInfo offer={offer}/>
+      <div className={infoClass} data-testid="place-card-info">
+        <div className="place-card__price-wrapper">
+          <div className="place-card__price">
+            <b className="place-card__price-value">&euro;{offer.price}</b>
+            <span className="place-card__price-text">&#47;&nbsp;night</span>
+          </div>
+          <Bookmark hotelId={offer.id} isFavorite={offer.isFavorite} type={placeCardType} />
+        </div>
+        <div className="place-card__rating rating">
+          <div className="place-card__stars rating__stars">
+            <span style={{ width: `${getRatingStyleData(offer.rating)}%` }}></span>
+            <span className="visually-hidden">Rating</span>
+          </div>
+        </div>
+        <h2 className="place-card__name">
+          <Link to={`${AppRoute.Room}${offer.id}`} data-testid="place-card-property-link">{offer.title}</Link>
+        </h2>
+        <p className="place-card__type">{getAccommodationTitle(offer.type)}</p>
       </div>
     </article>
   );

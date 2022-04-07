@@ -1,26 +1,22 @@
-import {Review} from '../types/review';
+import {Review} from '../types/offers';
+import {datatype, date, internet, lorem} from 'faker';
 
-export const reviews: Review[] = [
-  {
-    id: 'dtjdytjyk',
+const REVIEW_AMOUNT = 2;
+
+const makeFakeReviews = (amount = REVIEW_AMOUNT): Review[] => Array.from(
+  Array(amount),
+  () => ({
+    review: lorem.paragraph(REVIEW_AMOUNT),
+    date: date.past(1).toString(),
+    id: datatype.number(),
+    rating: datatype.float(),
     user: {
-      id: 'tjrhgitrh',
-      src: 'https://upload.wikimedia.org/wikipedia/commons/a/af/20180405_FIFA_Women%27s_World_Cup_Qualification_AUT-SRB_Kristina_Inhof_850_6519.jpg',
-      name: 'Max',
+      avatarUrl: internet.avatar(),
+      id: datatype.number(),
+      isPro: datatype.boolean(),
+      name: internet.userName(),
     },
-    rating: 4.8,
-    text: 'A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam. The building is green and from 18th century.',
-    date: `${new Date('1995-12-17')}`,
-  },
-  {
-    id: 'yuliu',
-    user: {
-      id: 'tdykfil,',
-      src: 'https://upload.wikimedia.org/wikipedia/commons/a/af/20180405_FIFA_Women%27s_World_Cup_Qualification_AUT-SRB_Kristina_Inhof_850_6519.jpg',
-      name: 'Max',
-    },
-    rating: 4.8,
-    text: 'A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam. The building is green and from 18th century.',
-    date: `${new Date('1995-12-17')}`,
-  },
-];
+  }),
+);
+
+export default makeFakeReviews;

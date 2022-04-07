@@ -3,19 +3,16 @@ import {Link} from 'react-router-dom';
 import {useAppDispatch, useAppSelector} from '../../hooks/hooks';
 import HeaderNavLogged from '../header-nav-logged/header-nav-logged';
 import HeaderNavNotLogged from '../header-nav-not-logged/header-nav-not-logged';
-import {AppRoute} from '../../const';
-import {NameSpace} from '../../const';
+import {AppRoute, AuthorizationStatus} from '../../const';
+import {getUserDataForHeader} from '../../store/user-process/selectors';
 
 function Header(): JSX.Element {
   const dispatch = useAppDispatch();
-  const {authStatus, email} = useAppSelector((state) => ({
-    authStatus: state[NameSpace.auth],
-    email: state[NameSpace.user].email,
-  }));
-  const isAuthorisedUser = authStatus === 'authorized';
+  const {authStatus, email} = useAppSelector(getUserDataForHeader);
+  const isAuthorisedUser = authStatus === AuthorizationStatus.Auth;
 
   return (
-    <header className="header">
+    <header className="header" data-testid="header">
       <div className="container">
         <div className="header__wrapper">
           <div className="header__left">

@@ -1,32 +1,23 @@
 import React from 'react';
 import {Route, Routes} from 'react-router-dom';
-import {AppRoute, NameSpace} from '../../const';
+import {AppRoute} from '../../const';
 import Layout from '../layout/layout';
-import HomePage from '../home-page/home-page';
-import Login from '../login/login';
+import HomePage from '../../pages/home-page/home-page';
+import LoginPage from '../../pages/login-page/login-page';
 import PrivateRoute from '../private-route/private-route';
-import Favorites from '../favorites/favorites';
-import Property from '../property/property';
-import ErrorPage from '../404/404';
+import FavoritesPage from '../../pages/favorites-page/favorites-page';
+import PropertyPage from '../../pages/property-page/property-page';
+import ErrorPage from '../../pages/404/404';
 import { Provider } from 'react-redux';
 import store from '../../store/store';
 import HistoryRouter from '../history-router/history-router';
 import browserHistory from '../../browser-history';
-import {useAppSelector} from '../../hooks/hooks';
-import LoadingScreen from '../loading-screen/loading-screen';
-
 import {fetchOffersAction, checkAuthAction} from '../../store/api-actions';
 
-store.dispatch(fetchOffersAction);
-store.dispatch(checkAuthAction);
+store.dispatch(fetchOffersAction());
+store.dispatch(checkAuthAction());
 
 function App(): JSX.Element {
-  const authStatus = useAppSelector((state) => state[NameSpace.auth]);
-
-  if (authStatus === 'unknown') {
-    return <LoadingScreen />;
-  }
-
   return (
     <HistoryRouter history={browserHistory}>
       <Routes>
@@ -37,21 +28,28 @@ function App(): JSX.Element {
             </Provider>
           }
           />
-          <Route path={AppRoute.SignIn} element={<Login />} />
+          <Route path={AppRoute.City} element={
+            <Provider store={store}>
+              <HomePage />
+            </Provider>
+          }
+          />
+          <Route path={AppRoute.SignIn} element={<LoginPage />} />
           <Route path={AppRoute.Favorites} element={
             <PrivateRoute>
               <Provider store={store}>
-                <Favorites />
+                <FavoritesPage />
               </Provider>
             </PrivateRoute>
           }
           />
           <Route path={AppRoute.RoomId} element={
             <Provider store={store}>
-              <Property />
+              <PropertyPage />
             </Provider>
           }
           />
+          <Route path={AppRoute.NotFound} element={<ErrorPage />} />
         </Route>
         <Route path='*' element={<ErrorPage />} />
       </Routes>

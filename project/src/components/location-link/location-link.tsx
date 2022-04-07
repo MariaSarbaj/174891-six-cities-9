@@ -1,21 +1,14 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
-import {useAppDispatch} from '../../hooks/hooks';
-import {setCityName} from '../../store/reducers/city-reducer';
 import {AppRoute} from '../../const';
 
 function LocationLink(props: {cityName: string}) {
-  const dispatch = useAppDispatch();
   const {cityName} = props;
 
-  function handleClick() {
-    dispatch(setCityName(cityName));
-  }
-
   return (
-    <Link to={AppRoute.Main}>
-      <div className="locations__item-link" onClick={handleClick}>
-        <span>{cityName}</span>
+    <Link to={`${AppRoute.Main}${cityName}`}>
+      <div className="locations__item-link">
+        <span data-testid="location-link-city-name">{cityName}</span>
       </div>
     </Link>
   );

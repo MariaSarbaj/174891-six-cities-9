@@ -1,32 +1,26 @@
 import React from 'react';
 import cn from 'classnames';
-import { useAppDispatch, useAppSelector } from '../../hooks/hooks';
-import { setCityName } from '../../store/reducers/city-reducer';
-import { cityNames, NameSpace } from '../../const';
+import {Link} from 'react-router-dom';
+import {AppRoute, cityNames} from '../../const';
 
-function CityList() {
-  const {city} = useAppSelector((state) => ({
-    city: state[NameSpace.city],
-  }));
-  const dispatch = useAppDispatch();
-
-  function handleClick(cityName: string) {
-    return () => dispatch(setCityName(cityName));
-  }
+function CityList(props: {city: string}) {
+  const {city} = props;
 
   return (
-    <section className="locations container">
+    <section className="locations container" data-testid="cities-list">
       <ul className="locations__list tabs__list">
         {cityNames.map((cityName) => {
           const locationClassName = cn('locations__item-link tabs__item', {
             'tabs__item--active': cityName === city,
           });
           return (
-            <li key={cityName} className="locations__item" onClick={handleClick(cityName)}>
-              <a className={locationClassName} href="#locations__item">
-                <span>{cityName}</span>
-              </a>
-            </li>
+            <Link key={cityName} to={`${AppRoute.Main}${cityName}`}>
+              <li className="locations__item">
+                <div className={locationClassName} data-testid="city-name">
+                  <span>{cityName}</span>
+                </div>
+              </li>
+            </Link>
           );
         })}
       </ul>

@@ -1,12 +1,14 @@
 import React from 'react';
-import { useAppSelector } from '../../hooks/hooks';
-import {NameSpace} from '../../const';
+import {useParams} from 'react-router-dom';
+import {DEFAULT_CITY} from '../../const';
 
 function HomePageEmpty(): JSX.Element {
-  const city = useAppSelector((state) => state[NameSpace.city]);
+  const pathParams = useParams();
+  const city = pathParams.city ?? DEFAULT_CITY;
+
   return (
     <div className="cities__places-container cities__places-container--empty container">
-      <section className="cities__no-places">
+      <section className="cities__no-places" data-testid="main-page-empty">
         <div className="cities__status-wrapper tabs__content">
           <b className="cities__status">No places to stay available</b>
           <p className="cities__status-description">We could not find any property available at the moment in {city}</p>

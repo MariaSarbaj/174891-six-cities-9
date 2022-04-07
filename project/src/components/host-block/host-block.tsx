@@ -1,8 +1,13 @@
 import React from 'react';
 import {Host} from '../../types/offers';
+import cn from 'classnames';
 
 function HostBlock(props: {host: Host}): JSX.Element {
   const { avatarUrl, isPro, name } = props.host;
+
+  const avatarWrapperClass = cn('property__avatar-wrapper', 'user__avatar-wrapper', {
+    'property__avatar-wrapper--pro': isPro,
+  });
 
   function showProStatus() {
     return (
@@ -13,7 +18,7 @@ function HostBlock(props: {host: Host}): JSX.Element {
   }
   return (
     <div className="property__host-user user">
-      <div className="property__avatar-wrapper user__avatar-wrapper">
+      <div className={avatarWrapperClass}>
         <img className="property__avatar user__avatar" src={avatarUrl} width="74" height="74" alt="Host avatar" />
       </div>
       <span className="property__user-name">
