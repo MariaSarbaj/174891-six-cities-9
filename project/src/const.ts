@@ -6,7 +6,8 @@ export enum AppRoute {
   Favorites = '/favorites',
   Room = '/offer/',
   NotFound = '/notfound',
-  RoomId = '/offer/:id'
+  RoomId = '/offer/:id',
+  City = '/:city',
 }
 
 export enum AuthorizationStatus {
@@ -15,16 +16,16 @@ export enum AuthorizationStatus {
   Unknown = 'UNKNOWN',
 }
 
-export enum UrlMarker {
+export enum Pins {
   Default = 'pin.svg',
   Current = 'pin-active.svg'
 }
 
 export const cityNames = ['Paris', 'Cologne', 'Brussels', 'Amsterdam', 'Hamburg', 'Dusseldorf'];
 
-export const IMG_URL = 'img/';
+export const DEFAULT_CITY = cityNames[0];
 
-export const MIN_REVIEW_LENGTH = 50;
+export const IMG_URL = 'img/';
 
 export const MAX_STARS_RATING = 5;
 
@@ -38,7 +39,7 @@ export enum Mapping {
 }
 
 export enum APIRoute {
-  Comments = '/comments',
+  Reviews = '/reviews',
   Favorites = '/favorite',
   Login = '/login',
   Logout = '/logout',
@@ -69,14 +70,14 @@ export const DEFAULT_PROPERTY_DATA = {
 };
 
 export enum NameSpace {
-  auth = 'AUTH',
-  city = 'CITY',
-  reviews = 'REVIEWS',
-  offersNearby = 'OFFERS_NEARBY',
-  offers = 'OFFERS',
-  room = 'ROOM',
-  user = 'USER',
-  favorites = 'FAVORITES',
+  Auth = 'AUTH',
+  City = 'CITY',
+  Reviews = 'REVIEWS',
+  OffersNearby = 'OFFERS_NEARBY',
+  Offers = 'OFFERS',
+  Room = 'ROOM',
+  User = 'USER',
+  Favorites = 'FAVORITES',
 }
 
 export const REVIEW = {
@@ -91,4 +92,4 @@ export const DEFAULT_LOCATION = {
   Zoom: 0,
 } as const;
 
-
+export const accommodationsList = ['apartment', 'room', 'house', 'hotel'];

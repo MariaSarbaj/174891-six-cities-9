@@ -42,8 +42,6 @@ export type Offer = {
   type: AccommodationType,
 }
 
-export type Offers = Offer[]
-
 export type OffersProps = { offers: Offer[] };
 
 export type Point = Pick<Offer, 'id' | 'location'>;

@@ -1,58 +1,51 @@
 import React, {useRef, useEffect} from 'react';
-import leaflet from 'leaflet';
-import {Marker} from 'leaflet';
+import {Icon, Marker} from 'leaflet';
 import 'leaflet/dist/leaflet.css';
+import {MapProps, MapType} from '../../types/other-types';
+import {Pins, IMG_URL} from '../../const';
+import useMap from '../../hooks/use-map';
 
-import {UrlMarker} from '../../const';
-import useMap from '../../hooks/useMap';
-import {Offers, Location} from '../../types/offers';
-
-type MapScreenProps = {
-  city: Location;
-  offers: Offers,
-  selectedOffer?: number | null,
-  additionalClass?: string
+function getClassName(type: MapType ): string {
+  const mapping = {
+    main: 'cities__map map',
+    room: 'property__map map',
+  };
+  return mapping[type];
 }
 
-function Map({city, offers, selectedOffer, additionalClass}: MapScreenProps):JSX.Element {
+const defaultCustomIcon = new Icon({
+  iconUrl: `${IMG_URL}${Pins.Default}`,
+  iconSize: [28, 40],
+  iconAnchor: [20, 40],
+});
+
+const currentCustomIcon = new Icon({
+  iconUrl: `${IMG_URL}${Pins.Current}`,
+  iconSize: [28, 40],
+  iconAnchor: [20, 40],
+});
+
+const useMapAdapter = (props: Omit<MapProps, 'type'>)=>{
+  const { city, points, selectedPoint } = props;
+
   const mapRef = useRef(null);
   const map = useMap(mapRef, city);
-
-  const cls = ['map'];
-
-  if (additionalClass) {
-    cls.push(additionalClass);
-  }
-
-  const defaultCustomIcon = leaflet.icon({
-    iconUrl: UrlMarker.Default,
-    iconSize: [40, 40],
-    iconAnchor: [20, 40],
-  });
-
-  const currentCustomIcon = leaflet.icon({
-    iconUrl: UrlMarker.Current,
-    iconSize: [40, 40],
-    iconAnchor: [20, 40],
-  });
 
   useEffect(() => {
     const markers: Marker[] = [];
     if (map) {
-      offers.forEach((offer) => {
+      points.forEach((point) => {
         const marker = new Marker({
-          lat: offer.location.lat,
-          lng: offer.location.lng,
+          lat: point.location.lat,
+          lng: point.location.lng,
         });
-
         marker
           .setIcon(
-            selectedOffer !== undefined && offer.id === selectedOffer
+            selectedPoint !== undefined && point.id === selectedPoint
               ? currentCustomIcon
               : defaultCustomIcon,
           )
           .addTo(map);
-
         markers.push(marker);
       });
     }
@@ -63,14 +56,15 @@ function Map({city, offers, selectedOffer, additionalClass}: MapScreenProps):JSX
         }
       });
     };
-  }, [map, offers, selectedOffer, defaultCustomIcon, currentCustomIcon]);
+  }, [map, points, selectedPoint]);
+  return mapRef;
+};
 
-  return (
-    <section
-      className={cls.join(' ')}
-      ref={mapRef}
-    />
-  );
+
+function Map({city, points, selectedPoint, type}: MapProps): JSX.Element {
+  const mapRef = useMapAdapter({city, points, selectedPoint});
+
+  return <section ref={mapRef} className={getClassName(type)} data-testid="map"></section>;
 }
 
 export default Map;

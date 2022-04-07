@@ -3,10 +3,9 @@ import {useState, useMemo} from 'react';
 import SortingMenu from '../sorting-menu/sorting-menu';
 import LocationsList from '../locations-list/locations-list';
 import Map from '../../components/map/map';
-import { useAppSelector } from '../../hooks/hooks';
 import {Offer} from '../../types/offers';
 import {OffersSortingType} from '../../types/other-types';
-import {NameSpace, DEFAULT_LOCATION} from '../../const';
+import {DEFAULT_LOCATION} from '../../const';
 
 const compareFunctionMapping = {
   none: () => 0,
@@ -19,39 +18,36 @@ function getCompareFunction(type: OffersSortingType): (a: Offer, b: Offer) => nu
   return compareFunctionMapping[type];
 }
 
-function getRenderData(city: string, offers: Offer[], sortingType: OffersSortingType) {
-  const sortedByCityOffers = offers.filter((item) => item.city.name === city);
-  const sortedOffers = [...sortedByCityOffers].sort(getCompareFunction(sortingType));
+function getSortedOffers(offers: Offer[], sortingType: OffersSortingType) {
+  const points = offers.map(({ id, location }) => ({ id, location }));
+  const sortedOffers = [...offers].sort(getCompareFunction(sortingType));
   const cityLocation = sortedOffers[0].city.location ?? DEFAULT_LOCATION;
-  return {sortedOffers, cityLocation};
+  return {sortedOffers, cityLocation, points};
 }
 
-function HomePageContent(): JSX.Element {
+function HomePageContent(props: {offers: Offer[], city: string}): JSX.Element {
 
-  const {offers, city} = useAppSelector((state) => ({
-    offers: state[NameSpace.offers],
-    city: state[NameSpace.city],
-  }));
+  const {city, offers} = props;
 
   const [activeOffer, setActiveOffer] = useState(null as number | null);
   const [sortingType, setSortingType] = useState<OffersSortingType>('none');
-  const {sortedOffers, cityLocation} = useMemo(
-    () => getRenderData(city, offers, sortingType),
-    [city, offers, sortingType],
+  const {sortedOffers, cityLocation, points} = useMemo(
+    () => getSortedOffers(offers, sortingType),
+    [offers, sortingType],
   );
 
   return (
-    <div className="cities__places-container container">
-      <section className="cities__places places">
+    <div className="cities__places-container container" >
+      <section className="cities__places places" data-testid="home-page-content">
         <h2 className="visually-hidden">Places</h2>
         <b className="places__found">{sortedOffers.length} places to stay in {city}</b>
 
-        <SortingMenu setSortingType={setSortingType} sortingType={sortingType} />
+        <SortingMenu onSortiedType={setSortingType} sortingType={sortingType} />
 
-        <LocationsList setActiveOffer={setActiveOffer} offers={sortedOffers} locationsListType="placeCard"/>
+        <LocationsList onActiveOffer={setActiveOffer} offers={sortedOffers} placeCardType="placeCard"/>
       </section>
       <div className="cities__right-section">
-        <Map city={cityLocation} offers={offers} selectedOffer={activeOffer}/>
+        <Map city={cityLocation} points={points} selectedPoint={activeOffer} type="main"/>
       </div>
     </div>
   );
