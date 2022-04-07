@@ -23,7 +23,7 @@ const mockStore = configureMockStore<
   ThunkDispatch<State, typeof api, Action>
   >(middlewares);
 
-const renderCommentForm = (store: MockStore) => {
+const renderReviewForm = (store: MockStore) => {
   render (
     <Provider store={store}>
       <ReviewForm />
@@ -35,7 +35,7 @@ describe('Component: CommentForm', () => {
   describe('should render correctly', () => {
     const store = mockStore();
     it('initial rendering', () => {
-      renderCommentForm(store);
+      renderReviewForm(store);
 
       const checkboxesElements = screen.getAllByRole('radio') as HTMLInputElement[];
       const isAllcheckboxesNotChecked = checkboxesElements.every((element) => element.checked === false);
@@ -44,7 +44,7 @@ describe('Component: CommentForm', () => {
     });
 
     it('should checked radiobox when user click', () => {
-      renderCommentForm(store);
+      renderReviewForm(store);
 
       const checkboxesElements = screen.getAllByRole('radio');
       const testingElement = checkboxesElements[1] as HTMLInputElement;
@@ -56,7 +56,7 @@ describe('Component: CommentForm', () => {
     it('should render user text when user input it', () => {
       const userText = 'Rendering test pass successfuly';
 
-      renderCommentForm(store);
+      renderReviewForm(store);
 
       const textAreaElement = screen.getByTestId('room-comment-text') as HTMLTextAreaElement;
       userEvent.type(textAreaElement, userText);
@@ -69,7 +69,7 @@ describe('Component: CommentForm', () => {
     const store = mockStore();
     it('to be disabled when the rating is set but the text is not long enough', () => {
       const userText = 'A'.repeat(REVIEW.MinLength - 1);
-      renderCommentForm(store);
+      renderReviewForm(store);
 
       const checkboxesElements = screen.getAllByRole('radio');
       const testingElement = checkboxesElements[1] as HTMLInputElement;
@@ -84,7 +84,7 @@ describe('Component: CommentForm', () => {
 
     it('to be disabled when the text is long enough but the rating is not set', () => {
       const userText = 'A'.repeat(REVIEW.MinLength);
-      renderCommentForm(store);
+      renderReviewForm(store);
 
       const textAreaElement = screen.getByTestId('room-comment-text') as HTMLTextAreaElement;
       userEvent.type(textAreaElement, userText);
@@ -95,7 +95,7 @@ describe('Component: CommentForm', () => {
 
     it('to be enabled when the rating is set and the text is long enough', () => {
       const userText = 'A'.repeat(REVIEW.MinLength);
-      renderCommentForm(store);
+      renderReviewForm(store);
 
       const checkboxesElements = screen.getAllByRole('radio');
       const testingElement = checkboxesElements[1] as HTMLInputElement;
@@ -119,7 +119,7 @@ describe('Component: CommentForm', () => {
         .onPost(`${APIRoute.Reviews}/${roomId}`)
         .reply(200, {});
 
-      renderCommentForm(store);
+      renderReviewForm(store);
 
       const checkboxesElements = screen.getAllByRole('radio') as HTMLInputElement[];
       const testingElement = checkboxesElements[1] as HTMLInputElement;
@@ -143,7 +143,7 @@ describe('Component: CommentForm', () => {
         .onPost(`${APIRoute.Reviews}/${roomId}`)
         .reply(400, {});
 
-      renderCommentForm(store);
+      renderReviewForm(store);
 
       const checkboxesElements = screen.getAllByRole('radio') as HTMLInputElement[];
       const testingElement = checkboxesElements[1] as HTMLInputElement;
