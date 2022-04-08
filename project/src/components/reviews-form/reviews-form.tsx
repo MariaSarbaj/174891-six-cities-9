@@ -1,4 +1,4 @@
-import React, {SyntheticEvent, useState, useEffect, Fragment} from 'react';
+import {SyntheticEvent, useState, useEffect, Fragment} from 'react';
 import {errorHandle} from '../../services/error-handle';
 import {useAppDispatch, useAppSelector} from '../../hooks/hooks';
 import {sendReviewAction} from '../../store/api-actions';

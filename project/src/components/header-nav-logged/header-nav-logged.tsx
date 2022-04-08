@@ -1,4 +1,3 @@
-import React from 'react';
 import { SyntheticEvent } from 'react';
 import {finishAuthAction} from '../../store/api-actions';
 import { AppDispatch } from '../../types/other-types';

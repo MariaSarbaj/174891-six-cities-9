@@ -1,4 +1,3 @@
-import React from 'react';
 import {Link} from 'react-router-dom';
 import {useAppDispatch, useAppSelector} from '../../hooks/hooks';
 import HeaderNavLogged from '../header-nav-logged/header-nav-logged';

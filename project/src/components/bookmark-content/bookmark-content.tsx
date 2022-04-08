@@ -1,5 +1,3 @@
-import React from 'react';
-
 function BookmarkContent(props: { svgClassName: string, width: string, height: string }) {
   return (
     <>

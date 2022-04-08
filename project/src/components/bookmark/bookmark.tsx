@@ -1,4 +1,3 @@
-import React from 'react';
 import {Link} from 'react-router-dom';
 import {useAppSelector, useAppDispatch} from '../../hooks/hooks';
 import {changeOfferStatusAction} from '../../store/api-actions';

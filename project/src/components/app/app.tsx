@@ -1,4 +1,3 @@
-import React from 'react';
 import {Route, Routes} from 'react-router-dom';
 import {AppRoute} from '../../const';
 import Layout from '../layout/layout';

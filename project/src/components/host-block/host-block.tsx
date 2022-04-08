@@ -1,4 +1,3 @@
-import React from 'react';
 import {Host} from '../../types/offers';
 import cn from 'classnames';
 

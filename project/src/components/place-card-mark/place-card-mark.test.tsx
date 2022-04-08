@@ -1,5 +1,3 @@
-import React from 'react';
-
 import {render, screen} from '@testing-library/react';
 import PlaceCardMark from './place-card-mark';
 import {PlaceCardType} from '../../types/other-types';

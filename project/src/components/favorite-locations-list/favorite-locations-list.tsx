@@ -1,4 +1,3 @@
-import React from 'react';
 import FavoriteLocation from '../favorite-location/favorite-location';
 import { OffersProps, Offer } from '../../types/offers';
 

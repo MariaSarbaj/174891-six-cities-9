@@ -1,5 +1,3 @@
-import React from 'react';
-
 import {Routes, Route} from 'react-router-dom';
 import HistoryRouter from '../history-router/history-router';
 import {createMemoryHistory, History} from 'history';

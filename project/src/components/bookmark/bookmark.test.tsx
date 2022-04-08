@@ -1,4 +1,3 @@
-import React from 'react';
 import {Routes, Route} from 'react-router-dom';
 import thunk from 'redux-thunk';
 import {createMemoryHistory, History} from 'history';

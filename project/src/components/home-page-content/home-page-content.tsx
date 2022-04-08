@@ -1,4 +1,3 @@
-import React from 'react';
 import {useState, useMemo} from 'react';
 import SortingMenu from '../sorting-menu/sorting-menu';
 import LocationsList from '../locations-list/locations-list';

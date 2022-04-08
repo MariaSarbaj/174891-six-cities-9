@@ -1,4 +1,3 @@
-import React from 'react';
 import {SyntheticEvent, useLayoutEffect} from 'react';
 import {useAppDispatch, useAppSelector} from '../../hooks/hooks';
 import {authAction} from '../../store/api-actions';

@@ -1,4 +1,3 @@
-import React from 'react';
 import {render, screen} from '@testing-library/react';
 import ReviewItem from './review-item';
 import makeFakeReviews from '../../mocks/reviews';

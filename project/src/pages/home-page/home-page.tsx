@@ -1,4 +1,3 @@
-import React from 'react';
 import cn from 'classnames';
 import {useParams, Navigate} from 'react-router-dom';
 import Header from '../../components/header/header';

@@ -11,8 +11,8 @@ const makeFakeOffers = (amount = OFFER_AMOUNT, cityName?: string): Offer[] => Ar
     bedrooms: datatype.number(),
     city: {
       location: {
-        lat: datatype.float(),
-        lng: datatype.float(),
+        latitude: datatype.float(),
+        longitude: datatype.float(),
         zoom: datatype.number(),
       },
       name: cityName || getRandomValue(cityNames) as string,
@@ -30,8 +30,8 @@ const makeFakeOffers = (amount = OFFER_AMOUNT, cityName?: string): Offer[] => Ar
     isFavorite: datatype.boolean(),
     isPremium: datatype.boolean(),
     location: {
-      lat: datatype.float(),
-      lng: datatype.float(),
+      latitude: datatype.float(),
+      longitude: datatype.float(),
       zoom: datatype.number(),
     },
     maxAdults: datatype.number(),

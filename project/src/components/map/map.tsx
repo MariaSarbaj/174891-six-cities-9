@@ -1,4 +1,4 @@
-import React, {useRef, useEffect} from 'react';
+import {useRef, useEffect} from 'react';
 import {Icon, Marker} from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import {MapProps, MapType} from '../../types/other-types';
@@ -36,8 +36,8 @@ const useMapAdapter = (props: Omit<MapProps, 'type'>)=>{
     if (map) {
       points.forEach((point) => {
         const marker = new Marker({
-          lat: point.location.lat,
-          lng: point.location.lng,
+          lat: point.location.latitude,
+          lng: point.location.longitude,
         });
         marker
           .setIcon(

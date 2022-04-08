@@ -1,4 +1,3 @@
-import React from 'react';
 import FavoritPlacesList from '../favorite-places-list/favorite-places-list';
 import LocationLink from '../location-link/location-link';
 import {LocationsDataType} from '../../types/offers';

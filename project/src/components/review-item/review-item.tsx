@@ -1,4 +1,3 @@
-import React from 'react';
 import {Review} from '../../types/offers';
 import {getRatingStyleData} from '../../services/utils';
 

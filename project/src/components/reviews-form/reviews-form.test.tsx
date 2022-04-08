@@ -1,4 +1,3 @@
-import React from 'react';
 import {Action} from 'redux';
 import thunk, {ThunkDispatch} from 'redux-thunk';
 import {render, screen} from '@testing-library/react';

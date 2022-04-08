@@ -1,4 +1,3 @@
-import React from 'react';
 import { uniqueId } from '../../services/utils';
 
 function PropertyGallery(props: { images: string[] }): JSX.Element {

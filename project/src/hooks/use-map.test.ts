@@ -5,15 +5,15 @@ import useMap from './use-map';
 const rootElement = document.createElement('div');
 
 const fakeLocationData = {
-  lat: 10,
-  lng: 20,
+  latitude: 10,
+  longitude: 20,
   zoom: 10,
 };
 
 const expectedMapOptions = {
   center: {
-    lat: 10,
-    lng: 20,
+    latitude: 10,
+    longitude: 20,
   },
   zoom: 10,
 };

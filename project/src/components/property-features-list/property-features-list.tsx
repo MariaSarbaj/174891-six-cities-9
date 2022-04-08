@@ -1,4 +1,3 @@
-import React from 'react';
 import {uniqueId} from '../../services/utils';
 
 function PropertyFeaturesList(props: { inside: string[] }): JSX.Element {

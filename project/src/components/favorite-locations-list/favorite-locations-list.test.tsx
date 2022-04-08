@@ -1,5 +1,3 @@
-import React from 'react';
-
 import {Provider} from 'react-redux';
 import {createMemoryHistory} from 'history';
 import {render, screen} from '@testing-library/react';

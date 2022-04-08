@@ -1,4 +1,3 @@
-import React from 'react';
 import {render, screen} from '@testing-library/react';
 import PropertyFeaturesList from './property-features-list';
 import makeFakeOffers from '../../mocks/offers';

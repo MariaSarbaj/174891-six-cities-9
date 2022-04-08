@@ -1,5 +1,3 @@
-import React from 'react';
-
 function FavoritesEmpty(): JSX.Element {
   return (
     <section className="favorites favorites--empty" data-testid="favorites-empty">

@@ -1,4 +1,3 @@
-import React from 'react';
 import {memo, useState } from 'react';
 import { offersSortingVariants } from '../../const';
 import {OffersSortingType} from '../../types/other-types';

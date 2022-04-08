@@ -1,4 +1,3 @@
-import React from 'react';
 import {Navigate} from 'react-router-dom';
 import {useAppSelector} from '../../hooks/hooks';
 import {getAuthStatus} from '../../store/user-process/selectors';

@@ -1,5 +1,3 @@
-import React from 'react';
-
 import {Routes, Route} from 'react-router-dom';
 import {createMemoryHistory, History} from 'history';
 import {render, screen} from '@testing-library/react';

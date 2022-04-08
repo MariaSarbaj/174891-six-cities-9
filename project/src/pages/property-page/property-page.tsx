@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import {useEffect} from 'react';
 import {useParams} from 'react-router-dom';
 import Header from '../../components/header/header';
 import Map from '../../components/map/map';

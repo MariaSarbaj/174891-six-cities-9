@@ -1,4 +1,4 @@
-import React, {memo} from 'react';
+import {memo} from 'react';
 import PlaceCard from '../place-card/place-card';
 import cn from 'classnames';
 import {LocationsListProps} from '../../types/other-types';

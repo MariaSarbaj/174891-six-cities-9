@@ -1,4 +1,3 @@
-import React from 'react';
 import ReviewForm from '../../components/reviews-form/reviews-form';
 import ReviewsList from '../reviews-list/reviews-list';
 import {useAppSelector} from '../../hooks/hooks';
