@@ -36,7 +36,7 @@ function HomePageContent(props: {offers: Offer[], city: string}): JSX.Element {
   );
 
   return (
-    <div className="cities__places-container container" >
+    <div className="cities__places-container container">
       <section className="cities__places places" data-testid="home-page-content">
         <h2 className="visually-hidden">Places</h2>
         <b className="places__found">{sortedOffers.length} places to stay in {city}</b>

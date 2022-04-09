@@ -59,7 +59,7 @@ function PlaceCard(props: PlaceCardProps): JSX.Element {
       {offer.isPremium && <PlaceCardMark type="placeCard" />}
       <div className={imgWrapperClass} data-testid="place-card-img-wrapper">
         <Link to="/#">
-          <img className="place-card__image" src={offer.previewImage} width={width} height={height} alt="Place_image" />
+          <img className="place-card__image" src={offer.previewImage} width={width} height={height} alt="Place" />
         </Link>
       </div>
       <div className={infoClass} data-testid="place-card-info">

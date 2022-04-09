@@ -32,10 +32,10 @@ export const MAX_STARS_RATING = 5;
 export const offersSortingVariants: OffersSortingType[] = ['none', 'byPriceUp', 'byPriceDown', 'byRatingDown'];
 
 export enum Mapping {
-  none= 'Popular',
-  byPriceUp = 'Price: low to high',
-  byPriceDown = 'Price: high to low',
-  byRatingDown = 'Top rated first',
+  None= 'Popular',
+  ByPriceUp = 'Price: low to high',
+  ByPriceDown = 'Price: high to low',
+  ByRatingDown = 'Top rated first',
 }
 
 export enum APIRoute {
@@ -71,7 +71,6 @@ export const DEFAULT_PROPERTY_DATA = {
 
 export enum NameSpace {
   Auth = 'AUTH',
-  City = 'CITY',
   Reviews = 'REVIEWS',
   OffersNearby = 'OFFERS_NEARBY',
   Offers = 'OFFERS',
@@ -93,3 +92,19 @@ export const DEFAULT_LOCATION = {
 } as const;
 
 export const accommodationsList = ['apartment', 'room', 'house', 'hotel'];
+
+export const BookmarkParameters = {
+  isRoomTrue: {
+    width: '31',
+    height: '33',
+  },
+  isRoomFalse: {
+    width: '18',
+    height: '19',
+  },
+};
+
+export enum SvgClassName {
+  IsRoomTrue = 'property__bookmark-icon',
+  IsRoomFalse = 'place-card__bookmark-icon',
+}

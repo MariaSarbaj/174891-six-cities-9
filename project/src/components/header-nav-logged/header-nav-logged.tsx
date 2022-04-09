@@ -25,7 +25,7 @@ function HeaderNavLogged(props: {dispatch: AppDispatch, email: string}): JSX.Ele
           </Link>
         </li>
         <li className="header__nav-item">
-          <a className="header__nav-link" href="#nav-link" onClick={handleLinkClick}>
+          <a className="header__nav-link" href="#nav-link" onClick={handleLinkClick} data-testid="header-signout-link">
             <span className="header__signout">Sign out</span>
           </a>
         </li>

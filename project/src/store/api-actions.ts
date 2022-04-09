@@ -141,11 +141,11 @@ export const sendReviewAction = createAsyncThunk<void,
     onClearReviewForm: () => void,
     onLockReviewForm: (value: boolean) => void,
       },
-  {
-    dispatch: AppDispatch,
-    state: State,
-    extra: AxiosInstance
-  }>(
+    {
+      dispatch: AppDispatch,
+      state: State,
+      extra: AxiosInstance
+    }>(
       'reviews/sendReview',
       async (reviewData, {dispatch, extra: api}) => {
         const {hotelId, review, onClearReviewForm, onLockReviewForm} = reviewData;
@@ -178,7 +178,7 @@ export const changeOfferStatusAction = createAsyncThunk<void,
     state: State,
     extra: AxiosInstance
   }>(
-    'favorites-page/changeOfferFavoriteStatus',
+    'favorites/changeOfferFavoriteStatus',
     async (offerData, {dispatch, extra: api}) => {
       try {
         const {hotelId, isFavorite, actionType} = offerData;
@@ -204,7 +204,7 @@ export const fetchFavoritesAction = createAsyncThunk<void, undefined, {
   state: State,
   extra: AxiosInstance
 }>(
-  'favorites-page/fetchFavorites',
+  'favorites/fetchFavorites',
   async (_arg, {dispatch, extra: api}) => {
     try {
       const {data} = await toast.promise(

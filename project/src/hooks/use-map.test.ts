@@ -12,8 +12,8 @@ const fakeLocationData = {
 
 const expectedMapOptions = {
   center: {
-    latitude: 10,
-    longitude: 20,
+    lat: 10,
+    lng: 20,
   },
   zoom: 10,
 };

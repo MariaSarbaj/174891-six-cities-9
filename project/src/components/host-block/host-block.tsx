@@ -16,7 +16,7 @@ function HostBlock(props: {host: Host}): JSX.Element {
     );
   }
   return (
-    <div className="property__host-user user">
+    <div className="property__host-user user" data-testid="room-host">
       <div className={avatarWrapperClass}>
         <img className="property__avatar user__avatar" src={avatarUrl} width="74" height="74" alt="Host avatar" />
       </div>

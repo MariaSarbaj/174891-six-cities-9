@@ -3,12 +3,12 @@ import {useAppSelector, useAppDispatch} from '../../hooks/hooks';
 import {changeOfferStatusAction} from '../../store/api-actions';
 import {getAuthStatus} from '../../store/user-process/selectors';
 import {PlaceCardType} from '../../types/other-types';
-import {AppRoute, AuthorizationStatus} from '../../const';
+import {AppRoute, AuthorizationStatus, BookmarkParameters, SvgClassName} from '../../const';
 import BookmarkContent from '../bookmark-content/bookmark-content';
 
-const getWidth = (isRoom: boolean) => isRoom ? '31' : '18';
-const getHeight = (isRoom: boolean) => isRoom ? '33' : '19';
-const getSvgClassName = (isRoom: boolean) => isRoom ? 'property__bookmark-icon' : 'place-card__bookmark-icon';
+const getWidth = (isRoom: boolean) => isRoom ? BookmarkParameters.isRoomTrue.width : BookmarkParameters.isRoomFalse.width;
+const getHeight = (isRoom: boolean) => isRoom ? BookmarkParameters.isRoomTrue.height : BookmarkParameters.isRoomFalse.height;
+const getSvgClassName = (isRoom: boolean) => isRoom ? SvgClassName.IsRoomTrue : SvgClassName.IsRoomFalse;
 
 export const getViewProps = (isTypeRoom: boolean) => ({
   svgClassName: getSvgClassName(isTypeRoom),

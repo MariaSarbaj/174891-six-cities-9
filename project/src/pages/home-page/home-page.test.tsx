@@ -55,7 +55,7 @@ describe('Component: MainPage', () => {
     expect(screen.getByTestId('header')).toBeInTheDocument();
     expect(screen.getByTestId('cities-list')).toBeInTheDocument();
 
-    expect(screen.getByTestId('main-page-content')).toBeInTheDocument();
+    expect(screen.getByTestId('home-page-content')).toBeInTheDocument();
     expect(screen.queryByTestId('main-page-empty')).not.toBeInTheDocument();
   });
 
@@ -75,7 +75,7 @@ describe('Component: MainPage', () => {
     expect(screen.getByTestId('main-main').getAttribute('class')).not.toContain('page__main--index-empty');
     expect(screen.getByTestId('main-page-content-wrapper').getAttribute('class')).not.toContain('cities__places-container--empty');
 
-    expect(screen.getByTestId('main-page-content')).toBeInTheDocument();
+    expect(screen.getByTestId('home-page-content')).toBeInTheDocument();
     expect(screen.queryByTestId('main-page-empty')).not.toBeInTheDocument();
   });
 

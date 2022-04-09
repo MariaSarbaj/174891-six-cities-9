@@ -37,7 +37,7 @@ describe('Component: CommentForm', () => {
       renderReviewForm(store);
 
       const checkboxesElements = screen.getAllByRole('radio') as HTMLInputElement[];
-      const isAllcheckboxesNotChecked = checkboxesElements.every((element) => element.checked === false);
+      const isAllcheckboxesNotChecked = checkboxesElements.every((element) => !element.checked);
       expect(isAllcheckboxesNotChecked).toBeTruthy();
       expect(screen.getByPlaceholderText(placeholderText)).toBeInTheDocument();
     });

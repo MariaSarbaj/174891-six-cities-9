@@ -84,9 +84,6 @@ function PropertyPage(): JSX.Element | null {
                   <p className="property__text">
                     {room.description}
                   </p>
-                  <p className="property__text">
-                    {room.description}
-                  </p>
                 </div>
               </div>
               <ReviewBlock />

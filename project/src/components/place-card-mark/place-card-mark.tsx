@@ -10,7 +10,7 @@ function PlaceCardMark(props: { type: PlaceCardType }) {
     'property__mark': isTypeRoom,
   });
   return (
-    <div className={markClassName}>
+    <div className={markClassName} data-type={type} data-testid="place-card-mark">
       <span>Premium</span>
     </div>
   );
