@@ -64,7 +64,7 @@ function ReviewForm(): JSX.Element {
   }, [formData]);
 
   return (
-    <form className="reviews__form form" data-testid="reviews-form" action="#" method="post" onChange={handleFormChange} onSubmit={handleFormSubmit}>
+    <form className="reviews__form form" data-testid="reviews-form" action="#-some-valid-path" method="post" onChange={handleFormChange} onSubmit={handleFormSubmit}>
       <label className="reviews__label form__label" htmlFor="review">Your review</label>
       <div className="reviews__rating-form form__rating">
         {formData.checkboxesValue.map((item, i) => {
@@ -81,13 +81,12 @@ function ReviewForm(): JSX.Element {
           );
         })}
       </div>
-      <textarea className="reviews__textarea form__textarea" id="room-comment-text" data-testid="room-comment-text" name="review" placeholder="Tell how was your stay, what you like and what can be improved" maxLength={REVIEW.MaxLength} defaultValue={formData.comment}/>
+      <textarea id="room-comment-text" data-testid="room-comment-text" className="reviews__textarea form__textarea" name="comment" maxLength={REVIEW.MaxLength} placeholder="Tell how was your stay, what you like and what can be improved" defaultValue={formData.comment} ></textarea>
       <div className="reviews__button-wrapper">
         <p className="reviews__help">
-          To submit review please make sure to set <span className="reviews__star">rating</span> and describe
-          your stay with at least <b className="reviews__text-amount">50 characters</b>.
+          To submit review please make sure to set <span className="reviews__star">rating</span> and describe your stay with at least <b className="reviews__text-amount">50 characters</b>.
         </p>
-        <button className="reviews__submit form__submit button" type="submit" disabled={!isFormValid || isFormLocked} data-testid="submit">Submit</button>
+        <button className="reviews__submit form__submit button" data-testid="submit" type="submit" disabled={!isFormValid || isFormLocked}>Submit</button>
       </div>
     </form>
   );
