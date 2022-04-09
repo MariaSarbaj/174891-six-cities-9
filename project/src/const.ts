@@ -39,7 +39,7 @@ export enum Mapping {
 }
 
 export enum APIRoute {
-  Reviews = '/reviews',
+  Comments = '/comments',
   Favorites = '/favorite',
   Login = '/login',
   Logout = '/logout',
@@ -64,14 +64,14 @@ export enum HTTP_CODE {
 }
 
 export const DEFAULT_PROPERTY_DATA = {
-  reviews: [],
+  comments: [],
   offersNearby: [],
   property: null,
 };
 
 export enum NameSpace {
   Auth = 'AUTH',
-  Reviews = 'REVIEWS',
+  Comments = 'COMMENTS',
   OffersNearby = 'OFFERS_NEARBY',
   Offers = 'OFFERS',
   Room = 'ROOM',

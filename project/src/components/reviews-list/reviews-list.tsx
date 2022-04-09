@@ -1,13 +1,13 @@
 import ReviewItem from '../review-item/review-item';
-import {Review} from '../../types/offers';
+import {Comment} from '../../types/offers';
 
-function ReviewsList(props: { reviews: Review[]}): JSX.Element {
-  const {reviews} = props;
+function ReviewsList(props: { comments: Comment[]}): JSX.Element {
+  const {comments} = props;
 
   return (
     <ul className="reviews__list" data-testid="reviews-list">
-      {reviews.map((review) =>
-        <ReviewItem review={review} key={review.id}/>,
+      {comments.map((comment) =>
+        <ReviewItem comment={comment} key={comment.id}/>,
       )}
     </ul>
   );

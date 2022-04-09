@@ -5,9 +5,9 @@ import {configureMockStore} from '@jedmao/redux-mock-store';
 import {createAPI} from '../services/api';
 import {
   authAction, checkAuthAction, changeOfferStatusAction, fetchFavoritesAction,
-  fetchOffersAction, fetchRoomDataAction, finishAuthAction, sendReviewAction
+  fetchOffersAction, fetchRoomDataAction, finishAuthAction, sendCommentAction
 } from './api-actions';
-import {setReviews} from './reviews-process/reviews-process';
+import {setComments} from './comments-process/comments-process';
 import {removeFavoriteOffer, setFavorites} from './favorites-process/favorites-process';
 import {replaceOfferNearby} from './offers-nearby-process/offers-nearby-process';
 import {replaceOffer, setOffers} from './offers-process/offers-process';
@@ -164,7 +164,7 @@ describe('Async actions', () => {
   });
 
   describe('fetchFavoritesAction', () => {
-    it('should set favorites-page when server return 200', async () => {
+    it('should set favorites when server return 200', async () => {
       const store = mockStore();
       mockAPI
         .onGet(APIRoute.Favorites)
@@ -223,7 +223,7 @@ describe('Async actions', () => {
         .reply(200, {})
         .onGet(`${APIRoute.Offers}/${hotelId}/nearby`)
         .reply(200, {})
-        .onGet(`${APIRoute.Reviews}/${hotelId}`)
+        .onGet(`${APIRoute.Comments}/${hotelId}`)
         .reply(200, {});
 
       expect(store.getActions()).toEqual([]);
@@ -273,55 +273,55 @@ describe('Async actions', () => {
     });
   });
 
-  describe('sendReviewAction', () => {
+  describe('sendCommentAction', () => {
     const fakeDataForSend = {
       hotelId: 1,
-      review: {
+      comment: {
         rating: 3,
-        review: 'Some text',
+        comment: 'Some text',
         checkboxesValue: [false, false, true, false, false],
       },
-      onClearReviewForm: jest.fn(),
-      onLockReviewForm: jest.fn(),
+      onClearCommentForm: jest.fn(),
+      onLockCommentForm: jest.fn(),
     };
-    const requestPath = `${APIRoute.Reviews}/${fakeDataForSend.hotelId}`;
+    const requestPath = `${APIRoute.Comments}/${fakeDataForSend.hotelId}`;
 
-    it('should set review when server return 200 from %s', async () => {
+    it('should set comment when server return 200 from %s', async () => {
       const store = mockStore();
-      const {rating, review} = fakeDataForSend.review;
+      const {rating, comment} = fakeDataForSend.comment;
 
       mockAPI
-        .onPost(requestPath, {rating, review})
+        .onPost(requestPath, {rating, comment})
         .reply(200, {});
 
       expect(store.getActions()).toEqual([]);
 
-      await store.dispatch(sendReviewAction(fakeDataForSend));
+      await store.dispatch(sendCommentAction(fakeDataForSend));
 
       const actions = store.getActions().map(({type}) => type);
 
-      expect(actions).toContain(setReviews.toString());
-      expect(fakeDataForSend.onClearReviewForm).toBeCalled();
+      expect(actions).toContain(setComments.toString());
+      expect(fakeDataForSend.onClearCommentForm).toBeCalled();
     });
 
     it('should set authStatus "unauth" when server return 401 from %s', async () => {
       const store = mockStore();
-      const {rating, review} = fakeDataForSend.review;
+      const {rating, comment} = fakeDataForSend.comment;
 
       mockAPI
-        .onPost(requestPath, {rating, review})
+        .onPost(requestPath, {rating, comment})
         .reply(401, {});
       Storage.prototype.removeItem = jest.fn();
 
       expect(store.getActions()).toEqual([]);
 
-      await store.dispatch(sendReviewAction(fakeDataForSend));
+      await store.dispatch(sendCommentAction(fakeDataForSend));
 
       const actions = store.getActions().map(({type}) => type);
 
       expect(actions).toContain(unSuccessfulAuth.toString());
       expect(Storage.prototype.removeItem).toBeCalledTimes(1);
-      expect(fakeDataForSend.onLockReviewForm).toBeCalledWith(false);
+      expect(fakeDataForSend.onLockCommentForm).toBeCalledWith(false);
     });
   });
 });

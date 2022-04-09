@@ -1,10 +1,10 @@
 import {uniqueId} from '../../services/utils';
 
-function PropertyFeaturesList(props: { inside: string[] }): JSX.Element {
-  const { inside } = props;
+function PropertyFeaturesList(props: { goods: string[] }): JSX.Element {
+  const { goods } = props;
   return (
     <ul className="property__inside-list" data-testid="room-features-list">
-      {inside.map((item) => (
+      {goods.map((item) => (
         <li key={uniqueId('features')} className="property__inside-item">
           {item}
         </li>

@@ -1,9 +1,9 @@
-import {Review} from '../../types/offers';
+import {Comment} from '../../types/offers';
 import {getRatingStyleData} from '../../services/utils';
 
-function ReviewItem(props: { review: Review }): JSX.Element {
-  const { review: {
-    review, date, rating, user: { avatarUrl, name },
+function ReviewItem(props: { comment: Comment }): JSX.Element {
+  const { comment: {
+    comment, date, rating, user: { avatarUrl, name },
   } } = props;
   const displayedDate = new Date(date).toLocaleDateString('en-GB', { month: 'long', year: 'numeric' });
 
@@ -25,7 +25,7 @@ function ReviewItem(props: { review: Review }): JSX.Element {
           </div>
         </div>
         <p className="reviews__text">
-          {review}
+          {comment}
         </p>
         <time className="reviews__time" dateTime={date} data-testid="review-time">{displayedDate}</time>
       </div>

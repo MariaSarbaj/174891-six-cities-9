@@ -1,9 +1,9 @@
-import makeFakeReviews from './reviews';
+import makeFakeComments from './comments';
 import makeFakeOffers from './offers';
 import {RoomDataType} from '../types/offers';
 
 const makeFakeRoomData = () :RoomDataType => ({
-  reviews: makeFakeReviews(),
+  comments: makeFakeComments(),
   offersNearby: makeFakeOffers(),
   property: makeFakeOffers(1)[0],
 });

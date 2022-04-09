@@ -115,7 +115,7 @@ describe('Component: CommentForm', () => {
 
       const store = mockStore({ROOM: {id: roomId}});
       mockAPI
-        .onPost(`${APIRoute.Reviews}/${roomId}`)
+        .onPost(`${APIRoute.Comments}/${roomId}`)
         .reply(200, {});
 
       renderReviewForm(store);
@@ -139,7 +139,7 @@ describe('Component: CommentForm', () => {
 
       const store = mockStore({ROOM: {id: roomId}});
       mockAPI
-        .onPost(`${APIRoute.Reviews}/${roomId}`)
+        .onPost(`${APIRoute.Comments}/${roomId}`)
         .reply(400, {});
 
       renderReviewForm(store);

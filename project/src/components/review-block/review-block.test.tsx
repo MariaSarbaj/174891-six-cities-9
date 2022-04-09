@@ -6,7 +6,7 @@ import {configureMockStore, MockStore} from '@jedmao/redux-mock-store';
 import HistoryRouter from '../history-router/history-router';
 import {AuthorizationStatus, NameSpace} from '../../const';
 import ReviewBlock from './review-block';
-import makeFakeReviews from '../../mocks/reviews';
+import makeFakeReviews from '../../mocks/comments';
 
 const renderReviewBlock = (store: MockStore, history: History) => {
   render (
@@ -37,13 +37,13 @@ describe('Component: ReviewBlock', () => {
         [NameSpace.User]: {
           authorizationStatus: AuthorizationStatus.NoAuth,
         },
-        [NameSpace.Reviews]: makeFakeReviews(),
+        [NameSpace.Comments]: makeFakeReviews(),
       };
       const store = mockStore(fakeState);
 
       renderReviewBlock(store, history);
 
-      expect(screen.getByTestId('reviews-amount').textContent).toBe(fakeState[NameSpace.Reviews].length.toString());
+      expect(screen.getByTestId('reviews-amount').textContent).toBe(fakeState[NameSpace.Comments].length.toString());
       expect(screen.getByTestId('reviews-list')).toBeInTheDocument();
       expect(screen.queryByTestId('reviews-form')).not.toBeInTheDocument();
     });
@@ -53,7 +53,7 @@ describe('Component: ReviewBlock', () => {
         [NameSpace.User]: {
           authorizationStatus: AuthorizationStatus.Auth,
         },
-        [NameSpace.Reviews]: makeFakeReviews(),
+        [NameSpace.Comments]: makeFakeReviews(),
       };
       const store = mockStore(fakeState);
 

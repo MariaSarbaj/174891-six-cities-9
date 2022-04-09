@@ -8,7 +8,7 @@ import HistoryRouter from '../../components/history-router/history-router';
 import {AppRoute, AuthorizationStatus, DEFAULT_USER, NameSpace} from '../../const';
 import makeFakeOffers from '../../mocks/offers';
 import makeFakeUser from '../../mocks/user';
-import makeFakeReviews from '../../mocks/reviews';
+import makeFakeComments from '../../mocks/comments';
 import PropertyPage from './property-page';
 
 const renderPropertyPage = (store: MockStore, history: History) => {
@@ -44,7 +44,7 @@ describe('Component: RoomPage', () => {
     const state = {
       [NameSpace.Room]: {...makeFakeOffers(1)[0], id: hotelId},
       [NameSpace.OffersNearby]: makeFakeOffers(),
-      [NameSpace.Reviews]: makeFakeReviews(),
+      [NameSpace.Comments]: makeFakeComments(),
       [NameSpace.User]: {
         authorizationStatus: AuthorizationStatus.Auth,
         user: makeFakeUser(),
@@ -76,7 +76,7 @@ describe('Component: RoomPage', () => {
     const state = {
       [NameSpace.Room]: {...makeFakeOffers(1)[0], id: hotelId},
       [NameSpace.OffersNearby]: makeFakeOffers(),
-      [NameSpace.Reviews]: makeFakeReviews(),
+      [NameSpace.Comments]: makeFakeComments(),
       [NameSpace.User]: {
         authorizationStatus: AuthorizationStatus.NoAuth,
         user: makeFakeUser(),
@@ -94,7 +94,7 @@ describe('Component: RoomPage', () => {
     const state = {
       [NameSpace.Room]: null,
       [NameSpace.OffersNearby]: [],
-      [NameSpace.Reviews]: [],
+      [NameSpace.Comments]: [],
       [NameSpace.User]: {
         authorizationStatus: AuthorizationStatus.NoAuth,
         user: DEFAULT_USER,

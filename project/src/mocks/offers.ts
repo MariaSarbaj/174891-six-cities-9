@@ -18,7 +18,7 @@ const makeFakeOffers = (amount = OFFER_AMOUNT, cityName?: string): Offer[] => Ar
       name: cityName || getRandomValue(cityNames) as string,
     },
     description: lorem.sentence(),
-    inside: Array.from(Array(OFFER_AMOUNT), () => lorem.word()),
+    goods: Array.from(Array(OFFER_AMOUNT), () => lorem.word()),
     host:{
       avatarUrl: internet.avatar(),
       id: datatype.number(),

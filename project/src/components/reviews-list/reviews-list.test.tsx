@@ -1,13 +1,13 @@
 import {render, screen} from '@testing-library/react';
 import ReviewsList from './reviews-list';
-import makeFakeReviews from '../../mocks/reviews';
+import makeFakeReviews from '../../mocks/comments';
 
 describe('Component: ReviewList', () => {
   it('should render correctly', () => {
-    const reviews = makeFakeReviews(5);
+    const comments = makeFakeReviews(5);
 
-    render(<ReviewsList reviews={reviews} />);
+    render(<ReviewsList comments={comments} />);
 
-    expect(screen.getAllByTestId('review-item').length).toBe(reviews.length);
+    expect(screen.getAllByTestId('review-item').length).toBe(comments.length);
   });
 });

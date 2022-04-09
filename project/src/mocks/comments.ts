@@ -1,12 +1,12 @@
-import {Review} from '../types/offers';
+import {Comment} from '../types/offers';
 import {datatype, date, internet, lorem} from 'faker';
 
-const REVIEW_AMOUNT = 2;
+const Comment_AMOUNT = 2;
 
-const makeFakeReviews = (amount = REVIEW_AMOUNT): Review[] => Array.from(
+const makeFakeComments = (amount = Comment_AMOUNT): Comment[] => Array.from(
   Array(amount),
   () => ({
-    review: lorem.paragraph(REVIEW_AMOUNT),
+    comment: lorem.paragraph(Comment_AMOUNT),
     date: date.past(1).toString(),
     id: datatype.number(),
     rating: datatype.float(),
@@ -19,4 +19,4 @@ const makeFakeReviews = (amount = REVIEW_AMOUNT): Review[] => Array.from(
   }),
 );
 
-export default makeFakeReviews;
+export default makeFakeComments;

@@ -1,19 +1,19 @@
 import {SyntheticEvent, useState, useEffect, Fragment} from 'react';
 import {errorHandle} from '../../services/error-handle';
 import {useAppDispatch, useAppSelector} from '../../hooks/hooks';
-import {sendReviewAction} from '../../store/api-actions';
+import {sendCommentAction} from '../../store/api-actions';
 import {REVIEW, MAX_STARS_RATING} from '../../const';
-import {ReviewFormDataType} from '../../types/other-types';
+import {CommentFormDataType} from '../../types/other-types';
 import {getHotelId} from '../../store/room-process/selectors';
 
-export const FORM_DATA_INIT_STATE = { rating: null, review: '', checkboxesValue: getCheckboxesInitState() };
+export const FORM_DATA_INIT_STATE = { rating: null, comment: '', checkboxesValue: getCheckboxesInitState() };
 
 function getCheckboxesInitState() {
   return Array(MAX_STARS_RATING).fill(false);
 }
 
 function ReviewForm(): JSX.Element {
-  const [formData, setFormData] = useState<ReviewFormDataType>(FORM_DATA_INIT_STATE);
+  const [formData, setFormData] = useState<CommentFormDataType>(FORM_DATA_INIT_STATE);
   const [isFormValid, setIsFormValid] = useState(false);
   const [isFormLocked, setIsFormLocked] = useState(false);
   const dispatch = useAppDispatch();
@@ -40,11 +40,11 @@ function ReviewForm(): JSX.Element {
     e.preventDefault();
     if (hotelId) {
       setIsFormLocked(true);
-      dispatch(sendReviewAction({
-        review: formData,
+      dispatch(sendCommentAction({
+        comment: formData,
         hotelId,
-        onClearReviewForm: clearReview,
-        onLockReviewForm: setIsFormLocked,
+        onClearCommentForm: clearReview,
+        onLockCommentForm: setIsFormLocked,
       }));
     } else {
       errorHandle({error: new Error()});
@@ -59,8 +59,8 @@ function ReviewForm(): JSX.Element {
   }
 
   useEffect(() => {
-    const {rating, review} = formData;
-    setIsFormValid(rating !== null && review.length >= REVIEW.MinLength);
+    const {rating, comment} = formData;
+    setIsFormValid(rating !== null && comment.length >= REVIEW.MinLength);
   }, [formData]);
 
   return (
@@ -81,7 +81,7 @@ function ReviewForm(): JSX.Element {
           );
         })}
       </div>
-      <textarea className="reviews__textarea form__textarea" id="room-comment-text" data-testid="room-comment-text" name="review" placeholder="Tell how was your stay, what you like and what can be improved" maxLength={REVIEW.MaxLength} defaultValue={formData.review}/>
+      <textarea className="reviews__textarea form__textarea" id="room-comment-text" data-testid="room-comment-text" name="review" placeholder="Tell how was your stay, what you like and what can be improved" maxLength={REVIEW.MaxLength} defaultValue={formData.comment}/>
       <div className="reviews__button-wrapper">
         <p className="reviews__help">
           To submit review please make sure to set <span className="reviews__star">rating</span> and describe

@@ -8,7 +8,7 @@ export type AuthDataType = {
   password: FormDataEntryValue | null,
 }
 
-export type ReviewFormDataType = { rating: number | null, review: string, checkboxesValue: Array<boolean> };
+export type CommentFormDataType = { rating: number | null, comment: string, checkboxesValue: Array<boolean> };
 
 export type MapType = 'main' | 'room';
 

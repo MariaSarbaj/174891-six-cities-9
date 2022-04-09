@@ -1,7 +1,7 @@
 import { setOffers, replaceOffer } from './offers-process/offers-process';
 import { successfulAuth, unSuccessfulAuth } from './user-process/user-process';
 import { setRoom, setRoomData } from './room-process/room-process';
-import {setReviews} from './reviews-process/reviews-process';
+import {setComments} from './comments-process/comments-process';
 import { redirectToRoute } from './actions';
 import { APIRoute, AppRoute } from '../const';
 import { AxiosInstance } from 'axios';
@@ -9,7 +9,7 @@ import { toast } from 'react-toastify';
 import { errorHandle } from '../services/error-handle';
 import { saveToken, dropToken } from '../services/token';
 import { DEFAULT_PROPERTY_DATA, HTTP_CODE } from '../const';
-import {AuthDataType, ReviewFormDataType, PlaceCardType} from '../types/other-types';
+import {AuthDataType, CommentFormDataType, PlaceCardType} from '../types/other-types';
 import {replaceOfferNearby} from './offers-nearby-process/offers-nearby-process';
 import {setFavorites, removeFavoriteOffer} from './favorites-process/favorites-process';
 import {createAsyncThunk} from '@reduxjs/toolkit';
@@ -102,16 +102,16 @@ export const fetchRoomDataAction = createAsyncThunk<void, string, {
   'room/fetchRoomData',
   async (hotelId, {dispatch, extra: api}) => {
     try {
-      const [{data: property}, {data: offersNearby}, {data: reviews}] = await toast.promise(Promise.all([
+      const [{data: property}, {data: offersNearby}, {data: comments}] = await toast.promise(Promise.all([
         api.get(`${APIRoute.Offers}/${hotelId}`),
         api.get(`${APIRoute.Offers}/${hotelId}/nearby`),
-        api.get(`${APIRoute.Reviews}/${hotelId}`),
+        api.get(`${APIRoute.Comments}/${hotelId}`),
       ]), toastLoadingOptions);
-      dispatch(setRoomData({property, offersNearby, reviews}));
+      dispatch(setRoomData({property, offersNearby, comments}));
     } catch (error) {
       errorHandle(error);
       dispatch(setRoomData(DEFAULT_PROPERTY_DATA));
-      dispatch(redirectToRoute(AppRoute.NotFound));
+      // dispatch(redirectToRoute(AppRoute.NotFound));
     }
   },
 );
@@ -134,34 +134,34 @@ export const finishAuthAction = createAsyncThunk<void, undefined, {
   },
 );
 
-export const sendReviewAction = createAsyncThunk<void,
+export const sendCommentAction = createAsyncThunk<void,
   {
     hotelId: number,
-    review: ReviewFormDataType,
-    onClearReviewForm: () => void,
-    onLockReviewForm: (value: boolean) => void,
+    comment: CommentFormDataType,
+    onClearCommentForm: () => void,
+    onLockCommentForm: (value: boolean) => void,
       },
     {
       dispatch: AppDispatch,
       state: State,
       extra: AxiosInstance
     }>(
-      'reviews/sendReview',
-      async (reviewData, {dispatch, extra: api}) => {
-        const {hotelId, review, onClearReviewForm, onLockReviewForm} = reviewData;
+      'comments/sendComment',
+      async (commentData, {dispatch, extra: api}) => {
+        const {hotelId, comment, onClearCommentForm, onLockCommentForm} = commentData;
         try {
           const {data} = await toast.promise(
-            api.post(`${APIRoute.Reviews}/${hotelId}`, {rating: review.rating, review: review.review}),
+            api.post(`${APIRoute.Comments}/${hotelId}`, {rating: comment.rating, comment: comment.comment}),
             toastLoadingOptions,
           );
-          dispatch(setReviews(data));
-          onClearReviewForm();
+          dispatch(setComments(data));
+          onClearCommentForm();
         } catch (error) {
           if (isAuthError(error)) {
             dropToken();
             dispatch(unSuccessfulAuth());
           }
-          onLockReviewForm(false);
+          onLockCommentForm(false);
           errorHandle(error);
         }
       },

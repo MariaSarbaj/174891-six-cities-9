@@ -27,7 +27,7 @@ export type Offer = {
   bedrooms: number,
   city: City,
   description: string,
-  inside: string[],
+  goods: string[],
   host: Host,
   id: number,
   images: string[],
@@ -49,7 +49,7 @@ export type Point = Pick<Offer, 'id' | 'location'>;
 export type RoomDataType = {
   property: RoomStateType,
   offersNearby: Offer[];
-  reviews: Review[];
+  comments: Comment[];
 }
 
 export type RoomStateType = Offer | null;
@@ -63,8 +63,8 @@ export type UserType = {
   token: string,
 }
 
-export type Review = {
-  review: string,
+export type Comment = {
+  comment: string,
   date: string,
   id: number,
   rating: number,

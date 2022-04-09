@@ -1,13 +1,13 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import {setRoomData} from '../room-process/room-process';
-import {Review, RoomDataType} from '../../types/offers';
+import {Comment, RoomDataType} from '../../types/offers';
 import {NameSpace} from '../../const';
 
-const reviewsProcess = createSlice({
-  name: NameSpace.Reviews,
-  initialState: [] as Review[],
+const commentsProcess = createSlice({
+  name: NameSpace.Comments,
+  initialState: [] as Comment[],
   reducers: {
-    setReviews: (state, action:PayloadAction<Review[]>) => {
+    setComments: (state, action:PayloadAction<Comment[]>) => {
       state = action.payload;
       return state;
     },
@@ -15,12 +15,12 @@ const reviewsProcess = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(setRoomData, (state, action: PayloadAction<RoomDataType>) => {
-        state = action.payload.reviews;
+        state = action.payload.comments;
         return state;
       });
   },
 });
 
-export const { setReviews } = reviewsProcess.actions;
+export const { setComments } = commentsProcess.actions;
 
-export default reviewsProcess;
+export default commentsProcess;

@@ -75,7 +75,7 @@ function PropertyPage(): JSX.Element | null {
               </div>
               <div className="property__inside">
                 <h2 className="property__inside-title">What&apos;s inside</h2>
-                <PropertyFeaturesList inside={room.inside} />
+                <PropertyFeaturesList goods={room.goods} />
               </div>
               <div className="property__host">
                 <h2 className="property__host-title">Meet the host</h2>
