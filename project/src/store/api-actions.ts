@@ -159,8 +159,8 @@ export const sendCommentAction = createAsyncThunk<void,
         } catch (error) {
           if (isAuthError(error)) {
             dropToken();
-            dispatch(unSuccessfulAuth());
           }
+          dispatch(unSuccessfulAuth());
           onLockCommentForm(false);
           errorHandle(error);
         }
