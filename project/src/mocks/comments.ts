@@ -1,12 +1,12 @@
 import {Comment} from '../types/offers';
 import {datatype, date, internet, lorem} from 'faker';
 
-const Comment_AMOUNT = 2;
+const commentAmount = 2;
 
-const makeFakeComments = (amount = Comment_AMOUNT): Comment[] => Array.from(
+const makeFakeComments = (amount = commentAmount): Comment[] => Array.from(
   Array(amount),
   () => ({
-    comment: lorem.paragraph(Comment_AMOUNT),
+    comment: lorem.paragraph(commentAmount),
     date: date.past(1).toString(),
     id: datatype.number(),
     rating: datatype.float(),
